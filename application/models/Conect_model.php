@@ -25,7 +25,7 @@ class Conect_model extends CI_Model {
     $host = "localhost";
     //$host = "mysql.hostinger.com.br";
     //nome do banco de dados
-    $banco = "novo_motor";
+    $banco = "cms";
     //$banco = "u122010834_edge";
     //login do MySQL
     $login = "root";

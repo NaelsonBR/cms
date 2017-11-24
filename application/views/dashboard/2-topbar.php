@@ -16,9 +16,9 @@ $cargo_usuario = 'Administrador';
   <!-- Logo -->
   <a href="<?= base_url('Dashboard/home') ?>" class="logo">
     <!-- mini logo for sidebar mini 50x50 pixels -->
-    <span class="logo-mini"><b>P</b>M</span>
+    <span class="logo-mini"><b>P</b>w</span>
     <!-- logo for regular state and mobile devices -->
-    <span class="logo-lg"><b>Projeto </b>MOTOR II</span>
+    <span class="logo-lg"><b>Passos </b>Web</span>
   </a>
 
   <!-- Header Navbar -->
