@@ -18,15 +18,14 @@ class Site extends CI_Controller {
 		$this->load->model('Option_model');
 		$this->load->model('Noticia_model');
 		$this->load->model('Estado_model');
+		$this->load->model('Email_model');
 	}
 
 	public function index() {
-		$manutenção = Option_model::recuperarOption('manutencao');
-		if ($manutenção) {
-			$this->load->view('site/manutencao_view');
-		} else {
-			$this->load->view('site/home_page_view');
-		}
+		$destinatario = 'peterson.jfp@gmail.com';
+		$assunto = 'Um assuntó qualquer';
+		$mensagem = '<p>Uma ménsagem</p><p>Duas menságem</p><p>Tres mensagem</p>';
+		Email_model::emailHTML($destinatario, $assunto, $mensagem);
 	}
 
 }
