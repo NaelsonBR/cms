@@ -26,6 +26,7 @@ class Teste extends CI_Controller {
 		$this->load->helper('data_functions');
 		echo "<p>oiueeee</p>";
 		pedirBacon();
+		echo ENVIRONMENT;
 	}
 
 	public function receberFoto() {
