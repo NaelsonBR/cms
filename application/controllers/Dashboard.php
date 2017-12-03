@@ -111,7 +111,7 @@ class Dashboard extends CI_Controller {
 		$this->load->view('dashboard/2-topbar');
 		$this->load->view('dashboard/3-sidebar', $dados);
 		$this->load->view('dashboard/4-content-open');
-		$this->load->view('dashboard/telas/todas_as_mensagens_view');
+		$this->load->view('dashboard/telas/mensagem/todas_as_mensagens_view');
 		$this->load->view('dashboard/4-content-close');
 		$this->load->view('dashboard/5-configbar');
 		$this->load->view('dashboard/6-footer');
@@ -135,7 +135,7 @@ class Dashboard extends CI_Controller {
 		$this->load->view('dashboard/2-topbar');
 		$this->load->view('dashboard/3-sidebar', $dados);
 		$this->load->view('dashboard/4-content-open');
-		$this->load->view('dashboard/telas/mensagens_ult_30_dias_view');
+		$this->load->view('dashboard/telas/mensagem/mensagens_ult_30_dias_view');
 		$this->load->view('dashboard/4-content-close');
 		$this->load->view('dashboard/5-configbar');
 		$this->load->view('dashboard/6-footer');
@@ -150,7 +150,7 @@ class Dashboard extends CI_Controller {
 		$this->load->view('dashboard/2-topbar');
 		$this->load->view('dashboard/3-sidebar', $dados);
 		$this->load->view('dashboard/4-content-open');
-		$this->load->view('dashboard/telas/ler_mensagem_view', $dados);
+		$this->load->view('dashboard/telas/mensagem/ler_mensagem_view', $dados);
 		$this->load->view('dashboard/4-content-close');
 		$this->load->view('dashboard/5-configbar');
 		$this->load->view('dashboard/6-footer');
@@ -244,7 +244,7 @@ class Dashboard extends CI_Controller {
 		$this->load->view('dashboard/2-topbar');
 		$this->load->view('dashboard/3-sidebar', $dados);
 		$this->load->view('dashboard/4-content-open');
-		$this->load->view('dashboard/telas/email_promocional_view');
+		$this->load->view('dashboard/telas/email/email_promocional_view');
 		$this->load->view('dashboard/4-content-close');
 		$this->load->view('dashboard/5-configbar');
 		$this->load->view('dashboard/6-footer');
@@ -286,7 +286,7 @@ class Dashboard extends CI_Controller {
 		$this->load->view('dashboard/2-topbar');
 		$this->load->view('dashboard/3-sidebar', $dados);
 		$this->load->view('dashboard/4-content-open');
-		$this->load->view('dashboard/telas/editar_tags_view', $dados);
+		$this->load->view('dashboard/telas/gerenciar_tags_de_rastreio_view', $dados);
 		$this->load->view('dashboard/4-content-close');
 		$this->load->view('dashboard/5-configbar');
 		$this->load->view('dashboard/6-footer');
@@ -303,7 +303,7 @@ class Dashboard extends CI_Controller {
 		$this->load->view('dashboard/2-topbar');
 		$this->load->view('dashboard/3-sidebar', $dados);
 		$this->load->view('dashboard/4-content-open');
-		$this->load->view('dashboard/telas/nova_noticia_view');
+		$this->load->view('dashboard/telas/noticias/nova_noticia_view');
 		$this->load->view('dashboard/4-content-close');
 		$this->load->view('dashboard/5-configbar');
 		$this->load->view('dashboard/6-footer');
@@ -348,7 +348,7 @@ class Dashboard extends CI_Controller {
 		$this->load->view('dashboard/2-topbar');
 		$this->load->view('dashboard/3-sidebar', $dados);
 		$this->load->view('dashboard/4-content-open');
-		$this->load->view('dashboard/telas/gerenciar_noticia_view');
+		$this->load->view('dashboard/telas/noticias/gerenciar_noticia_view');
 		$this->load->view('dashboard/4-content-close');
 		$this->load->view('dashboard/5-configbar');
 		$this->load->view('dashboard/6-footer');
@@ -363,7 +363,7 @@ class Dashboard extends CI_Controller {
 		$this->load->view('dashboard/2-topbar');
 		$this->load->view('dashboard/3-sidebar', $dados);
 		$this->load->view('dashboard/4-content-open');
-		$this->load->view('dashboard/telas/editar_noticia_view', $dados);
+		$this->load->view('dashboard/telas/noticias/editar_noticia_view', $dados);
 		$this->load->view('dashboard/4-content-close');
 		$this->load->view('dashboard/5-configbar');
 		$this->load->view('dashboard/6-footer');
@@ -430,7 +430,7 @@ class Dashboard extends CI_Controller {
 	public function apagar_noticia($id) {
 		$apagada = Noticia_model::deleteNoticia($id);
 		if ($apagada) {
-			redirect(base_url('dashboard/home/1'));
+			echo "<script>javascript:history.back(-2)</script>";
 		} else {
 			redirect(base_url('dashboard/home/2'));
 		}
@@ -447,7 +447,7 @@ class Dashboard extends CI_Controller {
 		$this->load->view('dashboard/2-topbar');
 		$this->load->view('dashboard/3-sidebar', $dados);
 		$this->load->view('dashboard/4-content-open');
-		$this->load->view('dashboard/telas/tag_noticia_view');
+		$this->load->view('dashboard/telas/noticias/tag_noticia_view');
 		$this->load->view('dashboard/4-content-close');
 		$this->load->view('dashboard/5-configbar');
 		$this->load->view('dashboard/6-footer');
@@ -487,10 +487,11 @@ class Dashboard extends CI_Controller {
 	}
 
 	public function apagar_tag($id) {
+		//mostrar msg para o usuario que pode dar erro porque essa tag esta ligada a alguma noticia
 		self::verificaSessao();
 		$apagada = Tag_model::deleteTag($id);
 		if ($apagada) {
-			redirect(base_url('dashboard/home/1'));
+			echo "<script>javascript:history.back(-2)</script>";
 		} else {
 			redirect(base_url('dashboard/home/2'));
 		}
@@ -507,7 +508,7 @@ class Dashboard extends CI_Controller {
 		$this->load->view('dashboard/2-topbar');
 		$this->load->view('dashboard/3-sidebar', $dados);
 		$this->load->view('dashboard/4-content-open');
-		$this->load->view('dashboard/telas/tag_categoria_view');
+		$this->load->view('dashboard/telas/noticias/tag_categoria_view');
 		$this->load->view('dashboard/4-content-close');
 		$this->load->view('dashboard/5-configbar');
 		$this->load->view('dashboard/6-footer');
@@ -550,7 +551,7 @@ class Dashboard extends CI_Controller {
 		self::verificaSessao();
 		$apagada = Categoria_model::deleteCategoria($id);
 		if ($apagada) {
-			redirect(base_url('dashboard/home/1'));
+			echo "<script>javascript:history.back(-2)</script>";
 		} else {
 			redirect(base_url('dashboard/home/2'));
 		}
@@ -565,7 +566,7 @@ class Dashboard extends CI_Controller {
 		$dados['subMenuAtivo'] = "redes_sociais_01";
 
 		$dados['legenda_do_form'] = "Editar link do facebook";
-		$dados['label'] = "Link do facebook do site";
+		$dados['label'] = "Link do facebook de sua empresa";
 		$dados['nome_option'] = "link_rede_social_facebook";
 		$this->load->view('dashboard/1-header');
 		$this->load->view('dashboard/2-topbar');
@@ -583,7 +584,7 @@ class Dashboard extends CI_Controller {
 		$dados['subMenuAtivo'] = "redes_sociais_02";
 
 		$dados['legenda_do_form'] = "Editar link do Instagram";
-		$dados['label'] = "Link do Instagram do site";
+		$dados['label'] = "Link do Instagram de sua empresa";
 		$dados['nome_option'] = "link_rede_social_instagram";
 		$this->load->view('dashboard/1-header');
 		$this->load->view('dashboard/2-topbar');
@@ -601,7 +602,7 @@ class Dashboard extends CI_Controller {
 		$dados['subMenuAtivo'] = "redes_sociais_03";
 
 		$dados['legenda_do_form'] = "Editar link do Twitter";
-		$dados['label'] = "Link do Twitter do site";
+		$dados['label'] = "Link do Twitter de sua empresa";
 		$dados['nome_option'] = "link_rede_social_twitter";
 		$this->load->view('dashboard/1-header');
 		$this->load->view('dashboard/2-topbar');
@@ -619,7 +620,7 @@ class Dashboard extends CI_Controller {
 		$dados['subMenuAtivo'] = "redes_sociais_04";
 
 		$dados['legenda_do_form'] = "Editar link do Youtube";
-		$dados['label'] = "Link do Youtube do site";
+		$dados['label'] = "Link do Youtube de sua empresa";
 		$dados['nome_option'] = "link_rede_social_youtube";
 		$this->load->view('dashboard/1-header');
 		$this->load->view('dashboard/2-topbar');
@@ -637,7 +638,7 @@ class Dashboard extends CI_Controller {
 		$dados['subMenuAtivo'] = "redes_sociais_05";
 
 		$dados['legenda_do_form'] = "Editar link do G+";
-		$dados['label'] = "Link do G+ do site";
+		$dados['label'] = "Link do G+ de sua empresa";
 		$dados['nome_option'] = "link_rede_social_gplus";
 		$this->load->view('dashboard/1-header');
 		$this->load->view('dashboard/2-topbar');
@@ -655,7 +656,7 @@ class Dashboard extends CI_Controller {
 		$dados['subMenuAtivo'] = "redes_sociais_06";
 
 		$dados['legenda_do_form'] = "Editar link do Linkedin";
-		$dados['label'] = "Link do Linkedin do site";
+		$dados['label'] = "Link do Linkedin de sua empresa";
 		$dados['nome_option'] = "link_rede_social_linkedin";
 		$this->load->view('dashboard/1-header');
 		$this->load->view('dashboard/2-topbar');
@@ -678,7 +679,7 @@ class Dashboard extends CI_Controller {
 		$this->load->view('dashboard/2-topbar');
 		$this->load->view('dashboard/3-sidebar', $dados);
 		$this->load->view('dashboard/4-content-open');
-		$this->load->view('dashboard/telas/gerenciar_galeria_view');
+		$this->load->view('dashboard/telas/galeria/gerenciar_galeria_view');
 		$this->load->view('dashboard/4-content-close');
 		$this->load->view('dashboard/5-configbar');
 		$this->load->view('dashboard/6-footer');
@@ -695,7 +696,7 @@ class Dashboard extends CI_Controller {
 		$this->load->view('dashboard/2-topbar');
 		$this->load->view('dashboard/3-sidebar', $dados);
 		$this->load->view('dashboard/4-content-open');
-		$this->load->view('dashboard/telas/editar_usuario_view');
+		$this->load->view('dashboard/telas/config/editar_senha_usuario_view');
 		$this->load->view('dashboard/4-content-close');
 		$this->load->view('dashboard/5-configbar');
 		$this->load->view('dashboard/6-footer');
