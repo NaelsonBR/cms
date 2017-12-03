@@ -4,13 +4,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>
-      <?php
-      if (isset($titulo)) {
-        echo $titulo;
-      } else {
-        echo "Site Motor | CodeIgniter";
-      }
-      ?>
+			<?php
+			if (isset($titulo)) {
+				echo $titulo;
+			} else {
+				echo "Site Motor | CodeIgniter";
+			}
+			?>
     </title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -35,19 +35,19 @@
   <body class="hold-transition login-page">
     <div class="login-box">
       <div class="login-logo">
-        <b>BUSCA </b>SMART
+        <b>Passos</b>Web
       </div>
       <!-- /.login-logo -->
       <div class="login-box-body">
         <p class="login-box-msg">Logue-se para iniciar a sessão</p>
         <div class="text-danger">
-          <?php 
-          if (isset($msg_erro)) {
-            echo "$msg_erro";
-          } 
-          ?>
+					<?php
+					if (isset($msg_erro)) {
+						echo "$msg_erro";
+					}
+					?>
         </div>
-        <form method="post" action="<?= base_url('autenticacao') ?>">
+        <form method="post" action="<?= base_url('autenticacao/autenticar') ?>">
           <div class="form-group has-feedback">
             <input type="text" name="login" class="form-control" placeholder="Login">
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -78,13 +78,13 @@
     <!-- iCheck -->
     <script src="<?php echo base_url('assets/admin/plugins/iCheck/icheck.min.js'); ?>"></script>
     <script>
-      $(function () {
-        $('input').iCheck({
-          checkboxClass: 'icheckbox_square-blue',
-          radioClass: 'iradio_square-blue',
-          increaseArea: '20%' // optional
-        });
-      });
+			$(function () {
+				$('input').iCheck({
+					checkboxClass: 'icheckbox_square-blue',
+					radioClass: 'iradio_square-blue',
+					increaseArea: '20%' // optional
+				});
+			});
     </script>
   </body>
 </html>
