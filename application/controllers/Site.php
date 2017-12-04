@@ -23,10 +23,6 @@ class Site extends CI_Controller {
 
 	public function index() {
 		echo "<p>index</p>";
-//		$destinatario = 'peterson.jfp@gmail.com';
-//		$assunto = 'Um assuntó qualquer';
-//		$mensagem = '<p>Uma ménsagem</p><p>Duas menságem</p><p>Tres mensagem</p>';
-//		Email_model::emailHTML($destinatario, $assunto, $mensagem);
 	}
 
 }

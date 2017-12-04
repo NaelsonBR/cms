@@ -22,8 +22,6 @@ class Dashboard extends CI_Controller {
 		$this->load->model('GeradorDeSenha_model');
 		$this->load->model('Noticia_model');
 		$this->load->model('Option_model');
-		$this->load->model('Editar_pagina_model');
-		$this->load->model('Estado_model');
 		$this->load->model('Email_model');
 		$this->load->model('Contato_model');
 		$this->load->model('Arquivo_model');
@@ -200,7 +198,7 @@ class Dashboard extends CI_Controller {
 		$this->load->view('dashboard/2-topbar');
 		$this->load->view('dashboard/3-sidebar', $dados);
 		$this->load->view('dashboard/4-content-open');
-		$this->load->view('dashboard/telas/gerenciar_contatos_view');
+		$this->load->view('dashboard/telas/contatos/gerenciar_contatos_view');
 		$this->load->view('dashboard/4-content-close');
 		$this->load->view('dashboard/5-configbar');
 		$this->load->view('dashboard/6-footer');
@@ -230,7 +228,7 @@ class Dashboard extends CI_Controller {
 		$this->load->view('dashboard/2-topbar');
 		$this->load->view('dashboard/3-sidebar', $dados);
 		$this->load->view('dashboard/4-content-open');
-		$this->load->view('dashboard/telas/editar_option_text_area_view', $dados);
+		$this->load->view('dashboard/telas/option/editar_option_text_area_view', $dados);
 		$this->load->view('dashboard/4-content-close');
 		$this->load->view('dashboard/5-configbar');
 		$this->load->view('dashboard/6-footer');
@@ -286,7 +284,7 @@ class Dashboard extends CI_Controller {
 		$this->load->view('dashboard/2-topbar');
 		$this->load->view('dashboard/3-sidebar', $dados);
 		$this->load->view('dashboard/4-content-open');
-		$this->load->view('dashboard/telas/gerenciar_tags_de_rastreio_view', $dados);
+		$this->load->view('dashboard/telas/tagmanager/gerenciar_tags_de_rastreio_view', $dados);
 		$this->load->view('dashboard/4-content-close');
 		$this->load->view('dashboard/5-configbar');
 		$this->load->view('dashboard/6-footer');
@@ -572,7 +570,7 @@ class Dashboard extends CI_Controller {
 		$this->load->view('dashboard/2-topbar');
 		$this->load->view('dashboard/3-sidebar', $dados);
 		$this->load->view('dashboard/4-content-open');
-		$this->load->view('dashboard/telas/editar_option_input_text_view', $dados);
+		$this->load->view('dashboard/telas/option/editar_option_input_text_view', $dados);
 		$this->load->view('dashboard/4-content-close');
 		$this->load->view('dashboard/5-configbar');
 		$this->load->view('dashboard/6-footer');
@@ -590,7 +588,7 @@ class Dashboard extends CI_Controller {
 		$this->load->view('dashboard/2-topbar');
 		$this->load->view('dashboard/3-sidebar', $dados);
 		$this->load->view('dashboard/4-content-open');
-		$this->load->view('dashboard/telas/editar_option_input_text_view', $dados);
+		$this->load->view('dashboard/telas/option/editar_option_input_text_view', $dados);
 		$this->load->view('dashboard/4-content-close');
 		$this->load->view('dashboard/5-configbar');
 		$this->load->view('dashboard/6-footer');
@@ -608,7 +606,7 @@ class Dashboard extends CI_Controller {
 		$this->load->view('dashboard/2-topbar');
 		$this->load->view('dashboard/3-sidebar', $dados);
 		$this->load->view('dashboard/4-content-open');
-		$this->load->view('dashboard/telas/editar_option_input_text_view', $dados);
+		$this->load->view('dashboard/telas/option/editar_option_input_text_view', $dados);
 		$this->load->view('dashboard/4-content-close');
 		$this->load->view('dashboard/5-configbar');
 		$this->load->view('dashboard/6-footer');
@@ -626,7 +624,7 @@ class Dashboard extends CI_Controller {
 		$this->load->view('dashboard/2-topbar');
 		$this->load->view('dashboard/3-sidebar', $dados);
 		$this->load->view('dashboard/4-content-open');
-		$this->load->view('dashboard/telas/editar_option_input_text_view', $dados);
+		$this->load->view('dashboard/telas/option/editar_option_input_text_view', $dados);
 		$this->load->view('dashboard/4-content-close');
 		$this->load->view('dashboard/5-configbar');
 		$this->load->view('dashboard/6-footer');
@@ -644,7 +642,7 @@ class Dashboard extends CI_Controller {
 		$this->load->view('dashboard/2-topbar');
 		$this->load->view('dashboard/3-sidebar', $dados);
 		$this->load->view('dashboard/4-content-open');
-		$this->load->view('dashboard/telas/editar_option_input_text_view', $dados);
+		$this->load->view('dashboard/telas/option/editar_option_input_text_view', $dados);
 		$this->load->view('dashboard/4-content-close');
 		$this->load->view('dashboard/5-configbar');
 		$this->load->view('dashboard/6-footer');
@@ -662,7 +660,7 @@ class Dashboard extends CI_Controller {
 		$this->load->view('dashboard/2-topbar');
 		$this->load->view('dashboard/3-sidebar', $dados);
 		$this->load->view('dashboard/4-content-open');
-		$this->load->view('dashboard/telas/editar_option_input_text_view', $dados);
+		$this->load->view('dashboard/telas/option/editar_option_input_text_view', $dados);
 		$this->load->view('dashboard/4-content-close');
 		$this->load->view('dashboard/5-configbar');
 		$this->load->view('dashboard/6-footer');
@@ -756,7 +754,7 @@ class Dashboard extends CI_Controller {
 		$this->load->view('dashboard/2-topbar');
 		$this->load->view('dashboard/3-sidebar', $dados);
 		$this->load->view('dashboard/4-content-open');
-		$this->load->view('dashboard/telas/editar_option_input_text_view', $dados);
+		$this->load->view('dashboard/telas/option/editar_option_input_text_view', $dados);
 		$this->load->view('dashboard/4-content-close');
 		$this->load->view('dashboard/5-configbar');
 		$this->load->view('dashboard/6-footer');
@@ -804,7 +802,7 @@ class Dashboard extends CI_Controller {
 		$this->load->view('dashboard/2-topbar');
 		$this->load->view('dashboard/3-sidebar', $dados);
 		$this->load->view('dashboard/4-content-open');
-		$this->load->view('dashboard/telas/editar_option_input_text_view', $dados);
+		$this->load->view('dashboard/telas/option/editar_option_input_text_view', $dados);
 		$this->load->view('dashboard/4-content-close');
 		$this->load->view('dashboard/5-configbar');
 		$this->load->view('dashboard/6-footer');
