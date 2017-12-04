@@ -65,7 +65,7 @@ class Autenticacao extends CI_Controller {
 	public function sair() {
 		$this->session->set_userdata(array());
 		$this->session->sess_destroy();
-		redirect('administracao');
+		redirect('autenticacao');
 		exit();
 	}
 
