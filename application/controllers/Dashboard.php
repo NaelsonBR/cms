@@ -815,66 +815,17 @@ class Dashboard extends CI_Controller {
 
 	public function site_em_manutencao() {
 		self::verificaSessao();
-		$ativo = Option_model::recuperarOption('manutencao');
-		if (!$ativo) {
-			$url = base_url("Dashboard/ativar_modo_manutencao");
-			echo "
-        <h3>Modo de manutenção</h3>
-        <p class='text-danger'>
-          Se o modo de manutenção for ativado todos os visitantes do seu site verão apenas uma 
-          tela avisando que o site encontra-se em manutenção.
-        </p>
-        <h4>Status atual do site: <b><span class=\"text-success\">Modo de manutenção desativado</span></b></h4>
-        <a href=\"#\" id='ativar_modo_manutencao' style=\"font-size: 40pt\"
-           title=\"Ativar modo de manutenção\">
-          OFF <i class=\"fa fa-toggle-off\" aria-hidden=\"true\"></i> ON
-        </a>
-        <script>
-          $(document).ready(function () {
-            $('#ativar_modo_manutencao').click(function () {
-              var page = '$url';
-              $.ajax({
-                type: 'POST',
-                dataType: 'html',
-                url: page,
-                success: function (msg) {
-                  $('#btn_site_em_manutencao').click();
-                }
-              });
-            });
-          });
-        </script>
-      ";
-		} else {
-			$url = base_url("Dashboard/desativar_modo_manutencao");
-			echo "
-        <h3>Modo de manutenção</h3>
-        <p class='text-danger'>
-          Se o modo de manutenção for ativado todos os visitantes do seu site verão apenas uma 
-          tela avisando que o site encontra-se em manutenção.
-        </p>
-        <h4>Status atual do site: <b><span class=\"text-danger\">Modo de manutenção ativado !!!</span></b></h4>
-        <a href=\"#\" id='desativar_modo_manutencao' style=\"font-size: 40pt\"
-           title=\"desativar modo de manutenção\">
-          OFF <i class=\"fa fa-toggle-on\" aria-hidden=\"true\"></i> ON
-        </a>
-        <script>
-          $(document).ready(function () {
-            $('#desativar_modo_manutencao').click(function () {
-              var page = '$url';
-              $.ajax({
-                type: 'POST',
-                dataType: 'html',
-                url: page,
-                success: function (msg) {
-                  $('#btn_site_em_manutencao').click();
-                }
-              });
-            });
-          });
-        </script>
-      ";
-		}
+		$dados['menuAtivo'] = "config";
+		$dados['subMenuAtivo'] = "config_04";
+		$dados['ativo'] = Option_model::recuperarOption('manutencao');
+		$this->load->view('dashboard/1-header');
+		$this->load->view('dashboard/2-topbar');
+		$this->load->view('dashboard/3-sidebar', $dados);
+		$this->load->view('dashboard/4-content-open');
+		$this->load->view('dashboard/telas/manutencao/manutencao_view', $dados);
+		$this->load->view('dashboard/4-content-close');
+		$this->load->view('dashboard/5-configbar');
+		$this->load->view('dashboard/6-footer');
 	}
 
 	public function ativar_modo_manutencao() {
@@ -882,6 +833,7 @@ class Dashboard extends CI_Controller {
 		$nome = "manutencao";
 		$valor = TRUE;
 		Option_model::atualizarOption($nome, $valor);
+		redirect(base_url('dashboard/site_em_manutencao'));
 	}
 
 	public function desativar_modo_manutencao() {
@@ -889,6 +841,7 @@ class Dashboard extends CI_Controller {
 		$nome = "manutencao";
 		$valor = FALSE;
 		Option_model::atualizarOption($nome, $valor);
+		redirect(base_url('dashboard/site_em_manutencao'));
 	}
 
 }

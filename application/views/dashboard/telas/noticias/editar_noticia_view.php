@@ -5,7 +5,7 @@ $imagem = $noticia->getImagem();
 ?>
 <div class="container-fluid">
   <div class="row">
-    <h3>Adicionar nova notícia</h3>
+    <h3>Editar notícia</h3>
   </div>
   <form method="post" enctype="multipart/form-data" action="<?= base_url('Dashboard/salvar_noticia_editada') ?>">
     <div class="row">

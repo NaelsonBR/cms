@@ -24,71 +24,16 @@
 <script src="https://cdn.ckeditor.com/4.7.0/standard/ckeditor.js"></script>
 <script src="<?= base_url('assets/admin/plugins/ckeditor/adapters/jquery.js') ?>"></script>
 <script>
-  function ajaxSimples(page) {
-    $.ajax({
-      type: 'POST',
-      dataType: 'html',
-      url: page,
-      beforeSend: function () {
-        $("#carregando_animado").show('fast');
-      },
-      success: function (msg) {
-        $(".content").html(msg);
-        $("#carregando_animado").hide('fast');
-      }
-    });
-  }
-  $(document).ready(function () {
-
-    $('#editor1').ckeditor();
-    $('#texto_curto').ckeditor();
-    $('#texto_complementar').ckeditor();
-    $('#texto_descricao').ckeditor();
-    $('input').iCheck({
-      checkboxClass: 'icheckbox_flat-blue',
-      radioClass: 'iradio_flat-blue'
-    });
-
-    $('#ativar_modo_manutencao').click(function () {
-      var page = "<?= base_url("Dashboard/ativar_modo_manutencao") ?>";
-      $.ajax({
-        type: 'POST',
-        dataType: 'html',
-        url: page,
-        beforeSend: function () {
-          $("#carregando_animado").show('fast');
-        },
-        success: function (msg) {
-          $(".content").html(msg);
-          $("#carregando_animado").hide('slow');
-          $('#btn_site_em_manutencao').click();
-        }
-      });
-    });
-
-    $('#desativar_modo_manutencao').click(function () {
-      var page = "<?= base_url("Dashboard/desativar_modo_manutencao") ?>";
-      $.ajax({
-        type: 'POST',
-        dataType: 'html',
-        url: page,
-        beforeSend: function () {
-          $("#carregando_animado").show('fast');
-        },
-        success: function (msg) {
-          $(".content").html(msg);
-          $("#carregando_animado").hide('slow');
-          $('#btn_site_em_manutencao').click();
-        }
-      });
-    });
-
-    $('#btn_site_em_manutencao').click(function () {
-      var page = "<?= base_url('Dashboard/site_em_manutencao') ?>";
-      ajaxSimples(page);
-    });
-
-  });
+	$(document).ready(function () {
+		$('#editor1').ckeditor();
+		$('#texto_curto').ckeditor();
+		$('#texto_complementar').ckeditor();
+		$('#texto_descricao').ckeditor();
+		$('input').iCheck({
+			checkboxClass: 'icheckbox_flat-blue',
+			radioClass: 'iradio_flat-blue'
+		});
+	});
 </script>
 </body>
 </html>
