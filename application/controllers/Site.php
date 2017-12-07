@@ -17,7 +17,6 @@ class Site extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->model('Option_model');
 		$this->load->model('Noticia_model');
-		$this->load->model('Estado_model');
 		$this->load->model('Email_model');
 	}
 
