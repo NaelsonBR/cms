@@ -28,6 +28,7 @@ class	Dashboard	extends	CI_Controller	{
 				$this->load->model('Categoria_model');
 				$this->load->model('Noticia_categoria_model');
 				$this->load->model('Noticia_tag_model');
+				$this->load->model('Visualizacoes_model');
 		}
 
 		/* Home - painel administrativo

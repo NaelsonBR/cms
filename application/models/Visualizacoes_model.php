@@ -28,7 +28,6 @@ class	Visualizacoes_model	extends	CI_Model	{
 		function	__construct()	{
 				parent::__construct();
 				// Helpers, libraries e models necessários
-				$this->load->model('Autoload_model');
 				$this->load->model('Helper');
 		}
 

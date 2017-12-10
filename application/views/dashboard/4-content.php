@@ -38,7 +38,7 @@
 										<span class="info-box-icon bg-red"><i class="fa fa-bar-chart"></i></span>
 										<div class="info-box-content">
 												<span class="info-box-text">Visitas nos últimos 30 dias</span>
-												<span class="info-box-number">44000</span>
+												<span class="info-box-number"><?=	Visualizacoes_model::countVisualizacoes() ?></span>
 										</div>
 										<!-- /.info-box-content -->
 								</div>
