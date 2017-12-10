@@ -11,9 +11,17 @@ defined('BASEPATH')	OR	exit('No direct script access allowed');
 class	Helper	extends	CI_Model	{
 
 		function	__construct()	{
-
 				parent::__construct();
 				// aqui deverá ser carregado os helpers, libraries e models necessários
+				$this->load->model('Option_model');
+		}
+		
+		public	static	function verificaManutencao(){
+				$manutencao = Option_model::recuperarOption('manutencao');
+				if	($manutencao)	{
+						redirect(base_url('pages/manutencao'));
+						exit();
+				}
 		}
 
 		/* Datas

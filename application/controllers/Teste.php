@@ -21,7 +21,7 @@ class Teste extends CI_Controller {
 	}
 
 	public function index() {
-			Helper::dizerOi();
+			
 		
 	}
 

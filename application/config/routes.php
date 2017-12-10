@@ -52,6 +52,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['admin'] = 'autenticacao';
 $route['sair'] = 'autenticacao/sair';
 
-$route['default_controller'] = 'site';
+$route['default_controller'] = 'Pages';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

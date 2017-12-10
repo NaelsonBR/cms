@@ -164,25 +164,25 @@ class	Dashboard	extends	CI_Controller	{
 				if	($sucesso)	{
 						$msg	=	"Resposta enviada com sucesso.";
 						echo	"
-      <div class='row'>
-        <div class='alert alert-info alert-dismissible fade in text-center' style='border: 1px solid blue;' role='alert'>
-          <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-            <span aria-hidden='true'>x</span>
-          </button>
-          <strong>$msg</strong> 
-        </div>
-      </div>";
+								<div class='row'>
+										<div class='alert alert-info alert-dismissible fade in text-center' style='border: 1px solid blue;' role='alert'>
+												<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+														<span aria-hidden='true'>x</span>
+												</button>
+												<strong>$msg</strong> 
+										</div>
+								</div>";
 				}	else	{
 						$msg	=	"Aconteceu um erro ao enviar o email, se persistir informe ao administrador.";
 						echo	"
-      <div class='row'>
-        <div class='alert alert-info alert-dismissible fade in text-center' style='border: 1px solid blue;' role='alert'>
-          <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-            <span aria-hidden='true'>x</span>
-          </button>
-          <strong>$msg</strong> 
-        </div>
-      </div>";
+								<div class='row'>
+										<div class='alert alert-info alert-dismissible fade in text-center' style='border: 1px solid blue;' role='alert'>
+												<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+														<span aria-hidden='true'>x</span>
+												</button>
+												<strong>$msg</strong> 
+										</div>
+								</div>";
 				}
 		}
 
@@ -259,14 +259,14 @@ class	Dashboard	extends	CI_Controller	{
 				}
 				$msg	=	"Operação realizada com sucesso.";
 				echo	"
-    <div class='row'>
-      <div class='alert alert-info alert-dismissible fade in text-center' style='border: 1px solid blue;' role='alert'>
-        <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-          <span aria-hidden='true'>x</span>
-        </button>
-        <strong>$msg</strong> 
-      </div>
-    </div>";
+						<div class='row'>
+								<div class='alert alert-info alert-dismissible fade in text-center' style='border: 1px solid blue;' role='alert'>
+										<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+												<span aria-hidden='true'>x</span>
+										</button>
+										<strong>$msg</strong> 
+								</div>
+						</div>";
 		}
 
 		/* TagManager
@@ -522,25 +522,25 @@ class	Dashboard	extends	CI_Controller	{
 				if	($sucesso)	{
 						$msg	=	"Categoria salva com sucesso.";
 						echo	"
-      <div class='row'>
-        <div class='alert alert-info alert-dismissible fade in text-center' style='border: 1px solid blue;' role='alert'>
-          <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-            <span aria-hidden='true'>x</span>
-          </button>
-          <strong>$msg</strong>
-        </div>
-      </div>";
+								<div class='row'>
+										<div class='alert alert-info alert-dismissible fade in text-center' style='border: 1px solid blue;' role='alert'>
+												<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+														<span aria-hidden='true'>x</span>
+												</button>
+												<strong>$msg</strong>
+										</div>
+								</div>";
 				}	else	{
 						$msg	=	"Aconteceu um erro ao cadastrar no banco de dados, se persistir informe ao programador.";
 						echo	"
-      <div class='row'>
-        <div class='alert alert-danger alert-dismissible fade in text-center' style='border: 1px solid red;' role='alert'>
-          <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-            <span aria-hidden='true'>x</span>
-          </button>
-          <strong>$msg</strong>
-        </div>
-      </div>";
+								<div class='row'>
+										<div class='alert alert-danger alert-dismissible fade in text-center' style='border: 1px solid red;' role='alert'>
+												<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+														<span aria-hidden='true'>x</span>
+												</button>
+												<strong>$msg</strong>
+										</div>
+								</div>";
 				}
 		}
 
@@ -715,9 +715,9 @@ class	Dashboard	extends	CI_Controller	{
 								$this->load->view('dashboard/4-content');
 								$this->load->view('dashboard/5-configbar');
 								$this->load->view('dashboard/6-footer');
-								echo	"  <script>
-                  alert(\"Senha atualizada com sucesso.\");
-                </script>";
+								echo	"		<script>
+																alert(\"Senha atualizada com sucesso.\");
+														</script>";
 						}	else	{
 								$this->load->view('dashboard/1-header');
 								$this->load->view('dashboard/2-topbar');
@@ -725,9 +725,9 @@ class	Dashboard	extends	CI_Controller	{
 								$this->load->view('dashboard/4-content');
 								$this->load->view('dashboard/5-configbar');
 								$this->load->view('dashboard/6-footer');
-								echo	"  <script>
-                  alert(\"Erro ao atualizar a senha.\");
-                </script>";
+								echo	"   <script>
+																alert(\"Erro ao atualizar a senha.\");
+														</script>";
 						}
 				}	else	{
 						$this->load->view('dashboard/1-header');
@@ -736,9 +736,9 @@ class	Dashboard	extends	CI_Controller	{
 						$this->load->view('dashboard/4-content');
 						$this->load->view('dashboard/5-configbar');
 						$this->load->view('dashboard/6-footer');
-						echo	"  <script>
-                alert(\"Senha atual digitada incorretamente.\");
-              </script>";
+						echo	"   <script>
+														alert(\"Senha atual digitada incorretamente.\");
+												</script>";
 				}
 		}
 
@@ -768,25 +768,25 @@ class	Dashboard	extends	CI_Controller	{
 				if	($sucesso)	{
 						$msg	=	"Operação realizada com sucesso.";
 						echo	"
-      <div class='row'>
-        <div class='alert alert-info alert-dismissible fade in text-center' style='border: 1px solid blue;' role='alert'>
-          <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-            <span aria-hidden='true'>x</span>
-          </button>
-          <strong>$msg</strong> 
-        </div>
-      </div>";
+								<div class='row'>
+										<div class='alert alert-info alert-dismissible fade in text-center' style='border: 1px solid blue;' role='alert'>
+												<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+														<span aria-hidden='true'>x</span>
+												</button>
+												<strong>$msg</strong> 
+										</div>
+								</div>";
 				}	else	{
 						$msg	=	"Aconteceu um erro ao salvar ou você tentou salvar sem editar nada, se persistir informe ao administrador.";
 						echo	"
-      <div class='row'>
-        <div class='alert alert-danger alert-dismissible fade in text-center' style='border: 1px solid blue;' role='alert'>
-          <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-            <span aria-hidden='true'>x</span>
-          </button>
-          <strong>$msg</strong> 
-        </div>
-      </div>";
+								<div class='row'>
+										<div class='alert alert-danger alert-dismissible fade in text-center' style='border: 1px solid blue;' role='alert'>
+												<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+														<span aria-hidden='true'>x</span>
+												</button>
+												<strong>$msg</strong> 
+										</div>
+								</div>";
 				}
 		}
 

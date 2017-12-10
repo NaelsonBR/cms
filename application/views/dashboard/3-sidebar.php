@@ -172,19 +172,6 @@ if (isset($subMenuAtivo2) && $subMenuAtivo2 != "") {
 				</ul>
 			</li>
 
-			<li class="treeview <?= ($menu == 'galeria') ? 'active' : ''; ?>">
-				<a href="#"><i class="fa fa-file-image-o"></i> <span>Galeria de imagens</span>
-					<span class="pull-right-container">
-						<i class="fa fa-angle-left pull-right"></i>
-					</span>
-				</a>
-				<ul class="treeview-menu">
-					<li <?= ($submenu == 'galeria_01') ? 'class="active"' : ''; ?>>
-						<a href="<?= base_url('Dashboard/gerenciar_galeria') ?>">Gerenciar galeria</a>
-					</li>
-				</ul>
-			</li>
-
 			<li class="treeview <?= ($menu == 'config') ? 'active' : ''; ?>">
 				<a href="#"><i class="fa fa-wrench" aria-hidden="true"></i> <span>Configurações</span>
 					<span class="pull-right-container">
