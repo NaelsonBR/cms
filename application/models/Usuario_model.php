@@ -29,7 +29,7 @@ class Usuario_model extends CI_Model {
     /* abaixo deverão ser carregados helpers, libraries e models utilizados
       por este model */
     $this->load->model('Conect_model');
-    $this->load->model('Data_model');
+    $this->load->model('Helper');
   }
 
   //metodos estaticos
@@ -191,7 +191,7 @@ class Usuario_model extends CI_Model {
   }
 
   public static function atualizarUltimoAcesso($id) {
-    $data_de_ultimo_acesso = Data_model::retornarDataComHorario();
+    $data_de_ultimo_acesso = Helper::retornarDataComHorario();
     //criando a conexão
     $con = Conect_model::conectar();
     /* conte quantas linhas retornaram da pesquisa */

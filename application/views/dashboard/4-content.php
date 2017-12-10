@@ -5,8 +5,8 @@
 
 		<?php
 		//se precisar passar alguma msg ao usuario faça-o por aqui.
-		if (isset($msg) && $msg != "") {
-			echo "
+		if	(isset($msg)	&&	$msg	!=	"")	{
+				echo	"
 					<div class='row'>
 						<div class='alert alert-$tipo alert-dismissible fade in text-center' style='border: 1px solid blue;' role='alert'>
 							<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
@@ -24,13 +24,13 @@
 				<!-- small box -->
 				<div class="small-box bg-aqua">
 					<div class="inner">
-						<h3><?= Mensagem_model::contarMsgsNaoLidas() ?></h3>
+						<h3><?=	Mensagem_model::contarMsgsNaoLidas()	?></h3>
 						<p>Mensagens não lidas</p>
 					</div>
 					<div class="icon">
 						<i class="fa fa-envelope-o"></i>
 					</div>
-					<a href="<?= base_url('Dashboard/todas_as_mensagens') ?>" class="small-box-footer">
+					<a href="<?=	base_url('Dashboard/todas_as_mensagens')	?>" class="small-box-footer">
 						Ler agora <i class="fa fa-arrow-circle-right"></i>
 					</a>
 				</div>
@@ -55,7 +55,7 @@
 				<!-- small box -->
 				<div class="small-box bg-red">
 					<div class="inner">
-						<h3><?= Contato_model::contarCadastrosUltMes() ?></h3>
+						<h3><?=	Contato_model::contarCadastrosUltMes()	?></h3>
 						<p>Cadastros nos últimos 30 dias</p>
 					</div>
 					<div class="icon">
@@ -71,13 +71,13 @@
 				<!-- small box -->
 				<div class="small-box bg-blue">
 					<div class="inner">
-						<h3><?= Contato_model::contarContatos() ?></h3>
+						<h3><?=	Contato_model::contarContatos()	?></h3>
 						<p>Total de contatos cadastrados</p>
 					</div>
 					<div class="icon">
 						<i class="fa fa-address-book"></i>
 					</div>
-					<a href="#" class="small-box-footer">
+					<a href="<?= base_url('Dashboard/listar_contatos') ?>" class="small-box-footer">
 						Mais informações <i class="fa fa-arrow-circle-right"></i>
 					</a>
 				</div>
@@ -93,24 +93,21 @@
 <!-- /.content-wrapper -->
 <!-- Main Footer -->
 <footer class="main-footer">
-
+	<!-- Default to the left -->
+	<strong>
+		Copyright &copy; <?php	echo	date('Y')	?>
+		<a href="http://passosweb.com/">
+						PassosWeb
+		</a>.
+	</strong> Todos os direitos reservados.
 
 	<!-- To the right -->
 	<div class="pull-right hidden-xs">
 		<?php
-		$nome_empresa = Option_model::recuperarOption('nome_da_empresa');
-		if (isset($nome_empresa) && $nome_empresa != '') {
-			echo "$nome_empresa";
+		$nome_empresa	=	Option_model::recuperarOption('nome_da_empresa');
+		if	(isset($nome_empresa)	&&	$nome_empresa	!=	'')	{
+				echo	"$nome_empresa";
 		}
 		?>
 	</div>
-
-
-	<!-- Default to the left -->
-	<strong>
-		Copyright &copy; <?php echo date('Y') ?>
-		<a href="#">
-			<?= Option_model::recuperarOption('nome_da_empresa') ?>
-		</a>.
-	</strong> Todos os direitos reservados.
 </footer>

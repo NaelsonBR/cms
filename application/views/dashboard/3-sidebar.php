@@ -26,13 +26,8 @@ if (isset($subMenuAtivo2) && $subMenuAtivo2 != "") {
 			<div class="pull-left info">
 				<p>
 					<?php
-					$login_usuario = $this->session->userdata('login_usuario');
-					$id_usuario = Usuario_model::retornarIdInserindoLogin($login_usuario);
-					$usuario = Usuario_model::getObjUsuario($id_usuario);
-					$nome_usuario = $usuario->getNome();
-
-					if (isset($nome_usuario) && $nome_usuario != "") {
-						echo "$nome_usuario";
+					if (Option_model::recuperarOption('nome_da_empresa') && Option_model::recuperarOption('nome_da_empresa') != "") {
+						echo Option_model::recuperarOption('nome_da_empresa');
 					} else {
 						echo "Administrador";
 					}

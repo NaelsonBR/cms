@@ -34,7 +34,7 @@ if (is_string($msgs[0])) {
     $telefone = $msg->getTelefone();
     $assunto = $msg->getAssunto();
     $mensagem = $msg->getAssunto();
-    $data_de_cadastro = Data_model::formatarDateTime($msg->getData_de_cadastro());
+    $data_de_cadastro = Helper::formatarDateTime($msg->getData_de_cadastro());
     $base = base_url('dashboard');
     if ($status == 0) {
       $icone = '<i class="fa fa-envelope" aria-hidden="true"></i>';

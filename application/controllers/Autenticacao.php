@@ -20,7 +20,7 @@ class Autenticacao extends CI_Controller {
 		/* abaixo deverão ser carregados helpers, libraries e models utilizados
 		  por este controller */
 		$this->load->model('Usuario_model');
-		$this->load->model('GeradorDeSenha_model');
+		$this->load->model('Helper');
 		/* helper de url */
 		$this->load->helper('url');
 		$this->load->library('session');
@@ -38,7 +38,7 @@ class Autenticacao extends CI_Controller {
 		$autenticado = Usuario_model::autenticaLogin($login, $senha);
 		if ($autenticado) {
 			//caso login_valido seja true faça....
-			$num = GeradorDeSenha_model::gerarSenha(22);
+			$num = Helper::gerarSenha(22);
 			$novosdados = array(
 				'token_usuario' => $num,
 				'login_usuario' => $login,

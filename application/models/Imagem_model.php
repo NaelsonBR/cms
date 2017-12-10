@@ -23,7 +23,6 @@ class Imagem_model extends CI_Model {
 		parent::__construct();
 		// Helpers, libraries e models necessários
 		$this->load->model('Conect_model');
-		$this->load->model('Data_model');
 	}
 
 	//metodos estaticos

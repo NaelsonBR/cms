@@ -19,7 +19,6 @@ class Email_model extends CI_Model {
 		/* abaixo deverão ser carregados helpers, libraries e models utilizados
 		  por este model */
 		$this->load->model('Conect_model');
-		$this->load->model('Data_model');
 	}
 
 	public static function emailHTML($destinatario, $assunto, $mensagem) {

@@ -15,7 +15,6 @@ class Option_model extends CI_Model {
     parent::__construct();
     // aqui deverá ser carregado os helpers, libraries e models necessários
     $this->load->model('Conect_model');
-    $this->load->model('Data_model');
   }
 
   public static function cadastrarOption($nome, $valor) {

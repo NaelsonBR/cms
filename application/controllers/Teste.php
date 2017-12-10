@@ -14,28 +14,15 @@ class Teste extends CI_Controller {
 		/* contrutor da classe pai */
 		parent::__construct();
 		// aqui deverá ser carregado os helpers, libraries e models necessários.
-		$this->load->model('Data_model');
+		$this->load->model('Helper');
 		$this->load->helper('url');
-		$this->load->model('GeradorDeSenha_model');
 		$this->load->model('Email_model');
-		$this->load->model('Arquivo_model');
 		$this->load->model('Imagem_model');
 	}
 
 	public function index() {
-		$this->load->helper('data_functions');
-		echo "<p>oiueeee</p>";
-		pedirBacon();
-		echo ENVIRONMENT;
-	}
-
-	public function receberFoto() {
-		$imagem = Arquivo_model::salvarImagemRedimensinando($_FILES['imagem'], 1200, 900);
-		$identificador = GeradorDeSenha_model::gerarIdUnico();
-		Imagem_model::cadastrarImagem($imagem, "", "", Data_model::retornarDataComHorario(), $identificador);
-		$objImagem = Imagem_model::getObjImagemPeloIdentificador($identificador);
-		$id = $objImagem->getId();
-		echo "$id";
+			Helper::dizerOi();
+		
 	}
 
 	public function form_uploads() {

@@ -15,7 +15,7 @@ Mensagem_model::marcarMsgComoLida($msg->getId());
   <p><b>Telefone: </b><?= $msg->getTelefone() ?></p>
   <p><b>Email: </b><?= $msg->getEmail() ?></p>
   <h2>Dados da mensagem</h2>
-  <p><b>Data de cadastro: </b><?= Data_model::formatarDateTime($msg->getData_de_cadastro()) ?></p>
+  <p><b>Data de cadastro: </b><?= Helper::formatarDateTime($msg->getData_de_cadastro()) ?></p>
   <p><b>Assunto: </b><?= $msg->getAssunto() ?></p>
   <p><b>Corpo da mensagem</b></p>
   <p style="border: 1px solid #cecece; padding: 15px; background: #fff;"><?= $msg->getMensagem() ?></p>

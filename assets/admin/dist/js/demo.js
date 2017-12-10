@@ -49,51 +49,51 @@
   var demo_settings = $("<div />");
 
   //Layout options
-  demo_settings.append(
-      "<h4 class='control-sidebar-heading'>"
-      + "Opções de Layout"
-      + "</h4>"
-        //Fixed layout
-      + "<div class='form-group'>"
-      + "<label class='control-sidebar-subheading'>"
-      + "<input type='checkbox' data-layout='fixed' class='pull-right'/> "
-      + "Layout fixo"
-      + "</label>"
-      + "<p>Ativar o layout fixo. Você não pode usar layouts fixos e centralizado juntos!</p>"
-      + "</div>"
-        //Boxed layout
-      + "<div class='form-group'>"
-      + "<label class='control-sidebar-subheading'>"
-      + "<input type='checkbox' data-layout='layout-boxed'class='pull-right'/> "
-      + "Layout centralizado"
-      + "</label>"
-      + "<p>Ativar o layout centralizado</p>"
-      + "</div>"
-        //Sidebar Toggle
-      + "<div class='form-group'>"
-      + "<label class='control-sidebar-subheading'>"
-      + "<input type='checkbox' data-layout='sidebar-collapse' class='pull-right'/> "
-      + "Alterar sidebar"
-      + "</label>"
-      + "<p>Altera o estado da sidebar esquerda (contraída ou expandida)</p>"
-      + "</div>"
-        //Sidebar mini expand on hover toggle
-      + "<div class='form-group'>"
-      + "<label class='control-sidebar-subheading'>"
-      + "<input type='checkbox' data-enable='expandOnHover' class='pull-right'/> "
-      + "Sidebar expande ao passar o mouse"
-      + "</label>"
-      + "<p>A sidebar permanece contraída e se expande quando você passa o mouse</p>"
-      + "</div>"
-        //Control Sidebar Skin Toggle
-      + "<div class='form-group'>"
-      + "<label class='control-sidebar-subheading'>"
-      + "<input type='checkbox' data-sidebarskin='toggle' class='pull-right'/> "
-      + "Mudar layout da sidebar direita"
-      + "</label>"
-      + "<p>Alternar entre os tema black e light da sidebar direita</p>"
-      + "</div>"
-  );
+//  demo_settings.append(
+//      "<h4 class='control-sidebar-heading'>"
+//      + "Opções de Layout"
+//      + "</h4>"
+//        //Fixed layout
+//      + "<div class='form-group'>"
+//      + "<label class='control-sidebar-subheading'>"
+//      + "<input type='checkbox' data-layout='fixed' class='pull-right'/> "
+//      + "Layout fixo"
+//      + "</label>"
+//      + "<p>Ativar o layout fixo. Você não pode usar layouts fixos e centralizado juntos!</p>"
+//      + "</div>"
+//        //Boxed layout
+//      + "<div class='form-group'>"
+//      + "<label class='control-sidebar-subheading'>"
+//      + "<input type='checkbox' data-layout='layout-boxed'class='pull-right'/> "
+//      + "Layout centralizado"
+//      + "</label>"
+//      + "<p>Ativar o layout centralizado</p>"
+//      + "</div>"
+//        //Sidebar Toggle
+//      + "<div class='form-group'>"
+//      + "<label class='control-sidebar-subheading'>"
+//      + "<input type='checkbox' data-layout='sidebar-collapse' class='pull-right'/> "
+//      + "Alterar sidebar"
+//      + "</label>"
+//      + "<p>Altera o estado da sidebar esquerda (contraída ou expandida)</p>"
+//      + "</div>"
+//        //Sidebar mini expand on hover toggle
+//      + "<div class='form-group'>"
+//      + "<label class='control-sidebar-subheading'>"
+//      + "<input type='checkbox' data-enable='expandOnHover' class='pull-right'/> "
+//      + "Sidebar expande ao passar o mouse"
+//      + "</label>"
+//      + "<p>A sidebar permanece contraída e se expande quando você passa o mouse</p>"
+//      + "</div>"
+//        //Control Sidebar Skin Toggle
+//      + "<div class='form-group'>"
+//      + "<label class='control-sidebar-subheading'>"
+//      + "<input type='checkbox' data-sidebarskin='toggle' class='pull-right'/> "
+//      + "Mudar layout da sidebar direita"
+//      + "</label>"
+//      + "<p>Alternar entre os tema black e light da sidebar direita</p>"
+//      + "</div>"
+//  );
   var skins_list = $("<ul />", {"class": 'list-unstyled clearfix'});
 
   //Dark sidebar skins

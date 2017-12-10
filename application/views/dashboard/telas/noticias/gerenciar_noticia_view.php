@@ -28,7 +28,7 @@ if (is_string($noticias[0])) {
     $id = $post->getId();
     $titulo = $post->getTitulo();
     $data_postagem = $post->getData_cadastro();
-    $data_postagem_2 = Data_model::formatarDateTime($data_postagem);
+    $data_postagem_2 = Helper::formatarDateTime($data_postagem);
     $url = base_url('Dashboard/editar_noticia/') . $id;
     $url2 = base_url('Dashboard/apagar_noticia/') . $id;
     echo "  <tr>

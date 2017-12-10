@@ -21,7 +21,7 @@ class Categoria_model extends CI_Model {
     parent::__construct();
     // Helpers, libraries e models necessários
     $this->load->model('Conect_model');
-    $this->load->model('Data_model');
+    $this->load->model('Helper');
   }
 
   //metodos estaticos

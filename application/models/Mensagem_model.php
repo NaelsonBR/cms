@@ -25,7 +25,7 @@ class Mensagem_model extends CI_Model {
     parent::__construct();
     // Helpers, libraries e models necessários
     $this->load->model('Conect_model');
-    $this->load->model('Data_model');
+    $this->load->model('Helper');
   }
 
   //metodos estaticos
@@ -123,10 +123,10 @@ class Mensagem_model extends CI_Model {
   }
   
   public static function getMsgUlt30Dias() {
-    $hoje = Data_model::retornarData();
-    $mesPassaso = Data_model::adicionarDiasAUmaData($hoje, -30);
-    $dateTime = Data_model::retornarDataComHorario();
-    $hora = Data_model::retornarHoraInserindoDateTime($dateTime);
+    $hoje = Helper::getData();
+    $mesPassaso = Helper::adicionarDiasAUmaData($hoje, -30);
+    $dateTime = Helper::getDatetime();
+    $hora = Helper::retornarHoraInserindoDateTime($dateTime);
     $datetimeMespassado = "$mesPassaso $hora";
     $array[0] = "";
     $contador = 0;
