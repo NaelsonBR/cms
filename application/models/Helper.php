@@ -14,6 +14,7 @@ class	Helper	extends	CI_Model	{
 				parent::__construct();
 				// aqui deverá ser carregado os helpers, libraries e models necessários
 				$this->load->model('Option_model');
+				$this->load->library('My_WideImage');
 		}
 		
 		public	static	function verificaManutencao(){

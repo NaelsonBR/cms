@@ -119,7 +119,7 @@ class	Dashboard	extends	CI_Controller	{
 				self::verificaSessao();
 				$apagada	=	Mensagem_model::deleteMensagem($id);
 				if	($apagada)	{
-						redirect(base_url('dashboard/home/1'));
+						echo	"<script>javascript:history.back(-2)</script>";
 				}	else	{
 						redirect(base_url('dashboard/home/2'));
 				}
@@ -208,7 +208,7 @@ class	Dashboard	extends	CI_Controller	{
 				self::verificaSessao();
 				$apagada	=	Contato_model::deleteContato($id);
 				if	($apagada)	{
-						redirect(base_url('dashboard/home/1'));
+						echo	"<script>javascript:history.back(-2)</script>";
 				}	else	{
 						redirect(base_url('dashboard/home/2'));
 				}

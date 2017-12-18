@@ -7,14 +7,12 @@
 				//se precisar passar alguma msg ao usuario faça-o por aqui.
 				if	(isset($msg)	&&	$msg	!=	"")	{
 						echo	"
-											<div class='row'>
 												<div class='alert alert-$tipo alert-dismissible fade in text-center' style='border: 1px solid blue;' role='alert'>
 													<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
 														<span aria-hidden='true'>x</span>
 													</button>
 													<strong>$msg</strong> 
-												</div>
-											</div>";
+												</div>";
 				}
 				?>
 				<h1>Painel administrativo</h1>
@@ -70,8 +68,6 @@
 						</div>
 
 				</div>
-
-
 
 		</section>
 		<!-- /.content -->

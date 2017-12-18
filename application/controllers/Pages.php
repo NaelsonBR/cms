@@ -19,8 +19,6 @@ class	Pages	extends	CI_Controller	{
 				$this->load->model('Noticia_model');
 				$this->load->model('Email_model');
 				$this->load->model('Helper');
-				
-				
 		}
 
 		public	function	index()	{
