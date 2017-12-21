@@ -15,13 +15,11 @@ class Teste extends CI_Controller {
 		parent::__construct();
 		// aqui deverá ser carregado os helpers, libraries e models necessários.
 		$this->load->model('Helper');
-		$this->load->helper('url');
-		$this->load->model('Email_model');
-		$this->load->model('Imagem_model');
 	}
 
 	public function index() {
-			
+			$s = Helper::gerarIdUnico();
+			echo	"<p>$s</p>";
 		
 	}
 

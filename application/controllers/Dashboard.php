@@ -16,19 +16,6 @@ class	Dashboard	extends	CI_Controller	{
 				// aqui deverá ser carregado os helpers, libraries e models necessários
 				$this->load->helper('url');
 				$this->load->library('session');
-				$this->load->model('usuario_model');
-				$this->load->model('Mensagem_model');
-				$this->load->model('Helper');
-				$this->load->model('Noticia_model');
-				$this->load->model('Option_model');
-				$this->load->model('Email_model');
-				$this->load->model('Contato_model');
-				$this->load->model('Helper');
-				$this->load->model('Tag_model');
-				$this->load->model('Categoria_model');
-				$this->load->model('Noticia_categoria_model');
-				$this->load->model('Noticia_tag_model');
-				$this->load->model('Visualizacoes_model');
 		}
 
 		/* Home - painel administrativo

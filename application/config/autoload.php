@@ -132,4 +132,15 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array();
+
+/*Gambiarra para jogar todos os models da pasta models no array de autoload do codeigniter*/
+$nomeDosArquivosNaPasta	=	scandir(APPPATH.'models');
+foreach	($nomeDosArquivosNaPasta as $m){
+		if	($m != '.' && $m != '..' && $m != 'index.html')	{
+				$ma = explode('.',	$m);
+				$models[] = $ma[0];
+		}
+}
+
+$autoload['model'] = array($models);
+

@@ -1,11 +1,11 @@
 <?php
 
+
 /*
 	* Autor: Peterson Passos
 	* peterson.jfp@gmail.com
 	* 51 9921298121
 	*/
-
 defined('BASEPATH')	OR	exit('No direct script access allowed');
 
 class	Helper	extends	CI_Model	{
