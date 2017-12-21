@@ -15,6 +15,7 @@ para serem editaveis pelo painel e exibidos no site com facilidade
 -- linguagem pt-br para as mensagens do sistema do codeigniter incluida e ativa
 
 configurações para funcionar em localhost
+-- subir no seu mysql a base que esta na raiz
 --configurar a base url no application/config/config:26
 --trocar a encryption key no application/config/config:327 (recomendado)
 --configurar os dados dos bancos no model connect (o $con é chamado pela função estática desse model)
