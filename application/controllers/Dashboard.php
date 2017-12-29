@@ -201,6 +201,25 @@ class	Dashboard	extends	CI_Controller	{
 				}
 		}
 
+		public	function	exportar_contatos_csv()	{
+				$contatos	=	Contato_model::getTodosOsContatos();
+				$contador	=	1;
+				$linha[0]	=	"Nome";
+				$linha[1]	=	"Telefone";
+				$linha[2]	=	"Email";
+				$linha[3]	=	"Data de cadastro";
+				$array_de_arrays[0]	=	$linha;
+				foreach	($contatos	as	$contato)	{
+						$linha[0]	=	$contato->getNome();
+						$linha[1]	=	$contato->getTelefone();
+						$linha[2]	=	$contato->getEmail();
+						$linha[3]	=	$contato->getData_de_cadastro();
+						$array_de_arrays[$contador]	=	$linha;
+						$contador++;
+				}
+				Helper::gerarEBaixarCsv($array_de_arrays);
+		}
+
 		/* Email
 			 ########################################################################## */
 
