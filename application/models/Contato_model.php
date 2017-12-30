@@ -48,6 +48,13 @@ class	Contato_model	extends	CI_Model	{
 								$stmt->bindParam(5,	$email_confirmado);
 								$stmt->execute();
 								if	($stmt->rowCount()	>	0)	{
+										$email_de_boas_vindas = Option_model::recuperarOption('email_de_boas_vindas');
+										if	($email_de_boas_vindas)	{
+												$destinatario = $email;
+												$assunto = 'Bem vindo a nossa newsletter';
+												$mensagem = $email_de_boas_vindas;
+												Email_model::emailHTML($destinatario,	$assunto,	$mensagem);
+										}
 										return	TRUE;
 								}	else	{
 										return	FALSE;

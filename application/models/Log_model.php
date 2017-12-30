@@ -32,7 +32,7 @@ class	Log_model	extends	CI_Model	{
 			*/
 		public	static	function	insertLog($arquivo,	$log)	{
 				try	{
-						$data = Data_model::retornarDataComHorario();
+						$data = Helper::getDatetime();
 						$con	=	Conect_model::conectar();
 						//preparando a query
 						$stmt	=	$con->prepare("INSERT INTO log
