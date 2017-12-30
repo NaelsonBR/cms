@@ -207,7 +207,7 @@ class	Dashboard	extends	CI_Controller	{
 				$linha[0]	=	"Nome";
 				$linha[1]	=	"Telefone";
 				$linha[2]	=	"Email";
-				$linha[3]	=	"Data de cadastro";
+				$linha[3]	=	'Data de cadastro';
 				$array_de_arrays[0]	=	$linha;
 				foreach	($contatos	as	$contato)	{
 						$linha[0]	=	$contato->getNome();
@@ -318,7 +318,7 @@ class	Dashboard	extends	CI_Controller	{
 				$getpost	=	filter_input_array(INPUT_POST,	FILTER_DEFAULT);
 				$titulo	=	$getpost['titulo'];
 				$corpo	=	$getpost['corpo'];
-				$imagem	=	Helper::salvarImagemRedimensinando($_FILES['imagem'],	1200,	900);
+				$imagem	=	Helper::salvarImagem($_FILES['imagem']);
 				$status	=	$getpost['status'];
 				$visibilidade	=	1;
 				$categorias	=	$getpost['categorias'];
@@ -383,7 +383,7 @@ class	Dashboard	extends	CI_Controller	{
 				$imagem_1	=	$_FILES['imagem'];
 				if	(!empty($imagem_1["name"]))	{
 						Helper::apagarImagem($noticia->getImagem());
-						$imagem	=	Helper::salvarImagemRedimensinando($imagem_1,	600,	450);
+						$imagem	=	Helper::salvarImagem($imagem);
 				}	else	{
 						$imagem	=	$noticia->getImagem();
 				}

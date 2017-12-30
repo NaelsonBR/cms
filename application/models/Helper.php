@@ -1,6 +1,5 @@
 <?php
 
-
 /*
 	* Autor: Peterson Passos
 	* peterson.jfp@gmail.com
@@ -13,12 +12,10 @@ class	Helper	extends	CI_Model	{
 		function	__construct()	{
 				parent::__construct();
 				// aqui deverá ser carregado os helpers, libraries e models necessários
-				$this->load->model('Option_model');
-				$this->load->library('My_WideImage');
 		}
-		
-		public	static	function verificaManutencao(){
-				$manutencao = Option_model::recuperarOption('manutencao');
+
+		public	static	function	verificaManutencao()	{
+				$manutencao	=	Option_model::recuperarOption('manutencao');
 				if	($manutencao)	{
 						redirect(base_url('pages/manutencao'));
 						exit();
@@ -183,7 +180,7 @@ class	Helper	extends	CI_Model	{
 				$data_final	=	"$ano_somado-$mes-$dia";
 				return	$data_final;
 		}
-		
+
 		/* manipulação de imagens
 			 ############################################################################ */
 
@@ -306,9 +303,17 @@ class	Helper	extends	CI_Model	{
 			* @param string $altura novo heigth da imagem
 			*/
 		public	static	function	redimensionarImagemPorAltura($caminho,	$altura)	{
-				$imagem	=	WideImage::load($caminho);
-				$imagem2	=	$imagem->resize(null,	$altura,	'inside');
-				$imagem2->saveToFile($caminho);
+				$config['image_library']	=	'gd2';
+				$config['source_image']	=	$caminho;
+				$config['create_thumb']	=	FALSE;
+				$config['maintain_ratio']	=	TRUE;
+				$config['height']	=	$altura;
+
+				$CI =& get_instance();
+				
+				$CI->load->library('image_lib',	$config);
+
+				$CI->image_lib->resize();
 		}
 
 		/**
@@ -318,22 +323,39 @@ class	Helper	extends	CI_Model	{
 			* @param string $largura nova width da imagem
 			*/
 		public	static	function	redimensionarImagemPorLargura($caminho,	$largura)	{
-				$imagem	=	WideImage::load($caminho);
-				$imagem2	=	$imagem->resize($largura,	NULL,	'inside');
-				$imagem2->saveToFile($caminho);
+				$config['image_library']	=	'gd2';
+				$config['source_image']	=	$caminho;
+				$config['create_thumb']	=	FALSE;
+				$config['maintain_ratio']	=	TRUE;
+				$config['width']	=	$largura;
+
+				$CI =& get_instance();
+				
+				$CI->load->library('image_lib',	$config);
+
+				$CI->image_lib->resize();
 		}
 
 		/**
 			* Redimensiona a imagem para o valor exato passado esticando-a conforme necessario, 
-			* pode destorcer a imagem se esta for upada com proporções diferentes.
+			* pode distorcer a imagem se esta for upada com proporções diferentes.
 			* @param string $caminho Localização da imagem NÃO HTTP
 			* @param string $largura nova width da imagem
 			* @param string $altura novo heigth da imagem
 			*/
 		public	static	function	redimensionarImagem($caminho,	$largura,	$altura)	{
-				$imagem	=	WideImage::load($caminho);
-				$imagem2	=	$imagem->resize($largura,	$altura,	'fill');
-				$imagem2->saveToFile($caminho);
+				$config['image_library']	=	'gd2';
+				$config['source_image']	=	$caminho;
+				$config['create_thumb']	=	FALSE;
+				$config['maintain_ratio']	=	FALSE;
+				$config['width']	=	$largura;
+				$config['height']	=	$altura;
+
+				$CI =& get_instance();
+				
+				$CI->load->library('image_lib',	$config);
+
+				$CI->image_lib->resize();
 		}
 
 		/* manipulação de string
@@ -375,7 +397,7 @@ class	Helper	extends	CI_Model	{
 			 ############################################################################ */
 
 		public	static	function	gerarEBaixarCsv($array_de_arrays)	{
-				self::cabecalhoDownloadCsv("Seus_clientes_"	.	date("d-m-Y")	.	"_SuaFidelidade.csv");
+				self::cabecalhoDownloadCsv("contatos-"	.	date("d-m-Y")	.	".csv");
 				echo	self::arrayParaCsv($array_de_arrays);
 				die();
 		}
@@ -410,9 +432,10 @@ class	Helper	extends	CI_Model	{
 				header("Content-Disposition: attachment;filename={$filename}");
 				header("Content-Transfer-Encoding: binary");
 		}
-		
+
 		/* Valores
-		################################################################*/
+			 ################################################################ */
+
 		/**
 			* recebe um numero com virgula (99,90) e retorna um com ponto (99.00)
 			*/
@@ -528,10 +551,10 @@ class	Helper	extends	CI_Model	{
 						$ipaddress	=	'UNKNOWN';
 				return	$ipaddress;
 		}
-		
-		/*Geração de senha, identificadores e string aleatórias
-		###############################################################*/
-		
+
+		/* Geração de senha, identificadores e string aleatórias
+			 ############################################################### */
+
 		/**
 			* gera uma senha aleatoria contendo numeros e letras minusculas
 			*/

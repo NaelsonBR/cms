@@ -18,9 +18,9 @@ class Teste extends CI_Controller {
 	}
 
 	public function index() {
-			$s = Helper::gerarIdUnico();
-			echo	"<p>$s</p>";
-		
+			$caminho = 'assets/uploads/black-wallpaper.jpg';
+			Helper::redimensionarImagem($caminho,	1200,	1200);
+			echo	"<p>redimensionei</p>";
 	}
 
 	public function form_uploads() {
