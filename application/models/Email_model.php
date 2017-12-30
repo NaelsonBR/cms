@@ -28,13 +28,13 @@ class	Email_model	extends	CI_Model	{
 						$mail->isSMTP();										// Set mailer to use SMTP
 						$mail->Host	=	'smtp.gmail.com';	// Specify main and backup SMTP servers
 						$mail->SMTPAuth	=	true;								// Enable SMTP authentication
-						$mail->Username	=	'teste@gmail.com';					// SMTP username
-						$mail->Password	=	'###';							// SMTP password
+						$mail->Username	=	'peterson.jfp@gmail.com';					// SMTP username
+						$mail->Password	=	'01141988pjfp';							// SMTP password
 						$mail->SMTPSecure	=	'tls';							// Enable TLS encryption, `ssl` also accepted
 						$mail->Port	=	587;									// TCP port to connect to
 						$mail->CharSet	=	"utf-8";	//evitar erros de acentuação
 						//Recipients
-						$mail->setFrom('teste@gmail.com',	'teste');
+						$mail->setFrom('peterson.jfp@gmail.com',	'Peterson');
 						$mail->addAddress($destinatario);				// Name is optional
 						//$mail->addReplyTo('info@example.com', 'Information');
 						//$mail->addCC('cc@example.com');
@@ -54,7 +54,7 @@ class	Email_model	extends	CI_Model	{
 						$mail->ClearAttachments();
 						return	TRUE;
 				}	catch	(Exception	$e)	{
-						Log_model::insertLog('email_model/emailHTML',	'Erro ao enviar o email, <br>'. $mail->ErrorInfo);
+						Log_model::insertLog('email_model/emailHTML',	'Erro ao enviar o email, <br>'	.	$mail->ErrorInfo);
 						echo	'Message could not be sent.';
 						echo	'Mailer Error: '	.	$mail->ErrorInfo;
 				}

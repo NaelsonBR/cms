@@ -117,7 +117,7 @@ class	Usuario_model	extends	CI_Model	{
 				}
 		}
 
-		public	static	function	getTodosOsUsuarios()	{
+		public	static	function	getAllUsuarios()	{
 				$array[0]	=	"";
 				$contador	=	0;
 				$con	=	Conect_model::conectar();
@@ -215,6 +215,14 @@ class	Usuario_model	extends	CI_Model	{
 						return	TRUE;
 				}	else	{
 						return	FALSE;
+				}
+		}
+
+		public	static	function	verificaSessao($chaveDeSessao)	{
+				$sessao	=	'fga35ds4g8sd4g3g8weg7w987g9f8gre';
+				if	($chaveDeSessao	!=	$sessao)	{
+						redirect('autenticacao');
+						exit();
 				}
 		}
 

@@ -75,35 +75,31 @@ class	Dashboard	extends	CI_Controller	{
 						$this->load->view('dashboard/6-footer');
 				}
 		}
-
-		public	function	verificaSessao()	{
-				$esta_logado	=	$this->session->userdata('esta_logado');
-				$sessao	=	'fga35ds4g8sd4g3g8weg7w987g9f8gre';
-				if	($esta_logado	!=	$sessao)	{
-						redirect('autenticacao');
-						exit();
-				}
+		
+		public static	function mountDashboard($tela_central, $dados){
+				$CI	=	get_instance();
+				$CI->load->view('dashboard/1-header', $dados);
+				$CI->load->view('dashboard/2-topbar', $dados);
+				$CI->load->view('dashboard/3-sidebar', $dados);
+				$CI->load->view('dashboard/4-content-open', $dados);
+				$CI->load->view('dashboard/'.$tela_central, $dados);
+				$CI->load->view('dashboard/4-content-close', $dados);
+				$CI->load->view('dashboard/5-configbar', $dados);
+				$CI->load->view('dashboard/6-footer', $dados);
 		}
 
 		/* Mensagens
 			 ########################################################################### */
 
 		public	function	todas_as_mensagens()	{
-				self::verificaSessao();
+				Usuario_model::verificaSessao($this->session->userdata('esta_logado'));
 				$dados['menuAtivo']	=	"msg";
 				$dados['subMenuAtivo']	=	"msg_01";
-				$this->load->view('dashboard/1-header');
-				$this->load->view('dashboard/2-topbar');
-				$this->load->view('dashboard/3-sidebar',	$dados);
-				$this->load->view('dashboard/4-content-open');
-				$this->load->view('dashboard/telas/mensagem/todas_as_mensagens_view');
-				$this->load->view('dashboard/4-content-close');
-				$this->load->view('dashboard/5-configbar');
-				$this->load->view('dashboard/6-footer');
+				self::mountDashboard('telas/mensagem/todas_as_mensagens_view',	$dados);
 		}
 
 		public	function	apagar_mensagem($id)	{
-				self::verificaSessao();
+				Usuario_model::verificaSessao($this->session->userdata('esta_logado'));
 				$apagada	=	Mensagem_model::deleteMensagem($id);
 				if	($apagada)	{
 						echo	"<script>javascript:history.back(-2)</script>";
@@ -113,64 +109,35 @@ class	Dashboard	extends	CI_Controller	{
 		}
 
 		public	function	msg_ult_30_dias()	{
-				self::verificaSessao();
+				Usuario_model::verificaSessao($this->session->userdata('esta_logado'));
 				$dados['menuAtivo']	=	"msg";
 				$dados['subMenuAtivo']	=	"msg_02";
-				$this->load->view('dashboard/1-header');
-				$this->load->view('dashboard/2-topbar');
-				$this->load->view('dashboard/3-sidebar',	$dados);
-				$this->load->view('dashboard/4-content-open');
-				$this->load->view('dashboard/telas/mensagem/mensagens_ult_30_dias_view');
-				$this->load->view('dashboard/4-content-close');
-				$this->load->view('dashboard/5-configbar');
-				$this->load->view('dashboard/6-footer');
+				self::mountDashboard('telas/mensagem/mensagens_ult_30_dias_view',	$dados);
 		}
 
 		public	function	ler_mensagem($id)	{
-				self::verificaSessao();
+				Usuario_model::verificaSessao($this->session->userdata('esta_logado'));
 				$dados['menuAtivo']	=	"msg";
 				$dados['subMenuAtivo']	=	"";
 				$dados['id_mensagem']	=	$id;
-				$this->load->view('dashboard/1-header');
-				$this->load->view('dashboard/2-topbar');
-				$this->load->view('dashboard/3-sidebar',	$dados);
-				$this->load->view('dashboard/4-content-open');
-				$this->load->view('dashboard/telas/mensagem/ler_mensagem_view',	$dados);
-				$this->load->view('dashboard/4-content-close');
-				$this->load->view('dashboard/5-configbar');
-				$this->load->view('dashboard/6-footer');
+				self::mountDashboard('telas/mensagem/ler_mensagem_view',	$dados);
 		}
 
 		public	function	responder_mensagem()	{
-				self::verificaSessao();
+				Usuario_model::verificaSessao($this->session->userdata('esta_logado'));
 				$getpost	=	filter_input_array(INPUT_POST,	FILTER_DEFAULT);
 				$assunto	=	$getpost['assunto'];
 				$mensagem	=	$getpost['editor1'];
 				$destinatario	=	$getpost['destinatario'];
-
 				$sucesso	=	Email_model::emailHTML($destinatario,	$assunto,	$mensagem);
 				if	($sucesso)	{
 						$msg	=	"Resposta enviada com sucesso.";
-						echo	"
-								<div class='row'>
-										<div class='alert alert-info alert-dismissible fade in text-center' style='border: 1px solid blue;' role='alert'>
-												<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-														<span aria-hidden='true'>x</span>
-												</button>
-												<strong>$msg</strong> 
-										</div>
-								</div>";
+						$alert	=	Helper::mountAlertBt3($msg,	'info');
+						echo	$alert;
 				}	else	{
 						$msg	=	"Aconteceu um erro ao enviar o email, se persistir informe ao administrador.";
-						echo	"
-								<div class='row'>
-										<div class='alert alert-info alert-dismissible fade in text-center' style='border: 1px solid blue;' role='alert'>
-												<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-														<span aria-hidden='true'>x</span>
-												</button>
-												<strong>$msg</strong> 
-										</div>
-								</div>";
+						$alert	=	Helper::mountAlertBt3($msg,	'info');
+						echo	$alert;
 				}
 		}
 
@@ -178,21 +145,14 @@ class	Dashboard	extends	CI_Controller	{
 			 ############################################################################ */
 
 		public	function	listar_contatos()	{
-				self::verificaSessao();
+				Usuario_model::verificaSessao($this->session->userdata('esta_logado'));
 				$dados['menuAtivo']	=	"contatos";
 				$dados['subMenuAtivo']	=	"contatos_01";
-				$this->load->view('dashboard/1-header');
-				$this->load->view('dashboard/2-topbar');
-				$this->load->view('dashboard/3-sidebar',	$dados);
-				$this->load->view('dashboard/4-content-open');
-				$this->load->view('dashboard/telas/contatos/gerenciar_contatos_view');
-				$this->load->view('dashboard/4-content-close');
-				$this->load->view('dashboard/5-configbar');
-				$this->load->view('dashboard/6-footer');
+				self::mountDashboard('telas/contatos/gerenciar_contatos_view',	$dados);
 		}
 
 		public	function	apagar_contato($id)	{
-				self::verificaSessao();
+				Usuario_model::verificaSessao($this->session->userdata('esta_logado'));
 				$apagada	=	Contato_model::deleteContato($id);
 				if	($apagada)	{
 						echo	"<script>javascript:history.back(-2)</script>";
@@ -224,38 +184,24 @@ class	Dashboard	extends	CI_Controller	{
 			 ########################################################################## */
 
 		public	function	email_boas_vindas()	{
-				self::verificaSessao();
+				Usuario_model::verificaSessao($this->session->userdata('esta_logado'));
 				$dados['menuAtivo']	=	"email";
 				$dados['subMenuAtivo']	=	"email_01";
 				$dados['legenda_do_form']	=	"Email de boas vindas";
 				$dados['label']	=	"Email que será enviado para o usuário que se inscrever na newsletter";
 				$dados['nome_option']	=	"email_de_boas_vindas";
-				$this->load->view('dashboard/1-header');
-				$this->load->view('dashboard/2-topbar');
-				$this->load->view('dashboard/3-sidebar',	$dados);
-				$this->load->view('dashboard/4-content-open');
-				$this->load->view('dashboard/telas/option/editar_option_text_area_view',	$dados);
-				$this->load->view('dashboard/4-content-close');
-				$this->load->view('dashboard/5-configbar');
-				$this->load->view('dashboard/6-footer');
+				self::mountDashboard('telas/option/editar_option_text_area_view',	$dados);
 		}
 
 		public	function	email_promocional()	{
-				self::verificaSessao();
+				Usuario_model::verificaSessao($this->session->userdata('esta_logado'));
 				$dados['menuAtivo']	=	"email";
 				$dados['subMenuAtivo']	=	"email_02";
-				$this->load->view('dashboard/1-header');
-				$this->load->view('dashboard/2-topbar');
-				$this->load->view('dashboard/3-sidebar',	$dados);
-				$this->load->view('dashboard/4-content-open');
-				$this->load->view('dashboard/telas/email/email_promocional_view');
-				$this->load->view('dashboard/4-content-close');
-				$this->load->view('dashboard/5-configbar');
-				$this->load->view('dashboard/6-footer');
+				self::mountDashboard('telas/email/email_promocional_view',	$dados);
 		}
 
 		public	function	enviar_email_promocional()	{
-				self::verificaSessao();
+				Usuario_model::verificaSessao($this->session->userdata('esta_logado'));
 				$getpost	=	filter_input_array(INPUT_POST,	FILTER_DEFAULT);
 				$assunto	=	$getpost['assunto'];
 				$mensagem	=	$getpost['mensagem'];
@@ -265,60 +211,39 @@ class	Dashboard	extends	CI_Controller	{
 						Email_model::emailHTML($destinatario,	$assunto,	$mensagem);
 				}
 				$msg	=	"Operação realizada com sucesso.";
-				echo	"
-						<div class='row'>
-								<div class='alert alert-info alert-dismissible fade in text-center' style='border: 1px solid blue;' role='alert'>
-										<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-												<span aria-hidden='true'>x</span>
-										</button>
-										<strong>$msg</strong> 
-								</div>
-						</div>";
+				$alert	=	Helper::mountAlertBt3($msg,	'info');
+				echo	$alert;
 		}
 
 		/* TagManager
 			 ############################################################################ */
 
 		public	function	gerenciar_tags()	{
-				self::verificaSessao();
+				Usuario_model::verificaSessao($this->session->userdata('esta_logado'));
 				$dados['menuAtivo']	=	"tag";
 				$dados['subMenuAtivo']	=	"tag_01";
 				$dados['legenda_do_form']	=	"Tags";
 				$dados['label']	=	"Tags de rastreio tipo google analytcs, facebook pixel etc. Elas serão inseridas no rodapé de seu site.";
 				$dados['nome_option']	=	"tags";
-				$this->load->view('dashboard/1-header');
-				$this->load->view('dashboard/2-topbar');
-				$this->load->view('dashboard/3-sidebar',	$dados);
-				$this->load->view('dashboard/4-content-open');
-				$this->load->view('dashboard/telas/tagmanager/gerenciar_tags_de_rastreio_view',	$dados);
-				$this->load->view('dashboard/4-content-close');
-				$this->load->view('dashboard/5-configbar');
-				$this->load->view('dashboard/6-footer');
+				self::mountDashboard('telas/tagmanager/gerenciar_tags_de_rastreio_view',	$dados);
 		}
 
 		/* notícias
 			 ############################################################################ */
 
 		public	function	nova_noticia()	{
-				self::verificaSessao();
+				Usuario_model::verificaSessao($this->session->userdata('esta_logado'));
 				$dados['menuAtivo']	=	"noticia";
 				$dados['subMenuAtivo']	=	"noticia_02";
-				$this->load->view('dashboard/1-header');
-				$this->load->view('dashboard/2-topbar');
-				$this->load->view('dashboard/3-sidebar',	$dados);
-				$this->load->view('dashboard/4-content-open');
-				$this->load->view('dashboard/telas/noticias/nova_noticia_view');
-				$this->load->view('dashboard/4-content-close');
-				$this->load->view('dashboard/5-configbar');
-				$this->load->view('dashboard/6-footer');
+				self::mountDashboard('telas/noticias/nova_noticia_view',	$dados);
 		}
 
 		public	function	salvar_nova_noticia()	{
-				self::verificaSessao();
+				Usuario_model::verificaSessao($this->session->userdata('esta_logado'));
 				$getpost	=	filter_input_array(INPUT_POST,	FILTER_DEFAULT);
 				$titulo	=	$getpost['titulo'];
 				$corpo	=	$getpost['corpo'];
-				$imagem	=	Helper::salvarImagem($_FILES['imagem']);
+				$imagem	=	(isset($_FILES['imagem']))	?	Helper::salvarImagem($_FILES['imagem'])	:	'';
 				$status	=	$getpost['status'];
 				$visibilidade	=	1;
 				$categorias	=	$getpost['categorias'];
@@ -345,43 +270,29 @@ class	Dashboard	extends	CI_Controller	{
 		}
 
 		public	function	todas_as_noticia()	{
-				self::verificaSessao();
+				Usuario_model::verificaSessao($this->session->userdata('esta_logado'));
 				$dados['menuAtivo']	=	"noticia";
 				$dados['subMenuAtivo']	=	"noticia_01";
-				$this->load->view('dashboard/1-header');
-				$this->load->view('dashboard/2-topbar');
-				$this->load->view('dashboard/3-sidebar',	$dados);
-				$this->load->view('dashboard/4-content-open');
-				$this->load->view('dashboard/telas/noticias/gerenciar_noticia_view');
-				$this->load->view('dashboard/4-content-close');
-				$this->load->view('dashboard/5-configbar');
-				$this->load->view('dashboard/6-footer');
+				self::mountDashboard('telas/noticias/gerenciar_noticia_view',	$dados);
 		}
 
 		public	function	editar_noticia($id)	{
-				self::verificaSessao();
+				Usuario_model::verificaSessao($this->session->userdata('esta_logado'));
 				$dados['menuAtivo']	=	"";
 				$dados['subMenuAtivo']	=	"";
 				$dados['id_noticia']	=	$id;
-				$this->load->view('dashboard/1-header');
-				$this->load->view('dashboard/2-topbar');
-				$this->load->view('dashboard/3-sidebar',	$dados);
-				$this->load->view('dashboard/4-content-open');
-				$this->load->view('dashboard/telas/noticias/editar_noticia_view',	$dados);
-				$this->load->view('dashboard/4-content-close');
-				$this->load->view('dashboard/5-configbar');
-				$this->load->view('dashboard/6-footer');
+				self::mountDashboard('telas/noticias/editar_noticia_view',	$dados);
 		}
 
 		public	function	salvar_noticia_editada()	{
-				self::verificaSessao();
+				Usuario_model::verificaSessao($this->session->userdata('esta_logado'));
 				$getpost	=	filter_input_array(INPUT_POST,	FILTER_DEFAULT);
 				$id_noticia	=	$getpost['id'];
 				$noticia	=	Noticia_model::getObjNoticia($id_noticia);
 				$titulo	=	$getpost['titulo'];
 				$corpo	=	$getpost['corpo'];
-				$imagem_1	=	$_FILES['imagem'];
-				if	(!empty($imagem_1["name"]))	{
+				$imagem_1	=	(isset($_FILES['imagem']))	?	$_FILES['imagem']	:	FALSE;
+				if	($imagem_1	&&	!empty($imagem_1["name"]))	{
 						Helper::apagarImagem($noticia->getImagem());
 						$imagem	=	Helper::salvarImagem($imagem);
 				}	else	{
@@ -444,55 +355,33 @@ class	Dashboard	extends	CI_Controller	{
 			 ############################################################################ */
 
 		public	function	tag_noticia()	{
-				self::verificaSessao();
+				Usuario_model::verificaSessao($this->session->userdata('esta_logado'));
 				$dados['menuAtivo']	=	"noticia";
 				$dados['subMenuAtivo']	=	"noticia_04";
-				$this->load->view('dashboard/1-header');
-				$this->load->view('dashboard/2-topbar');
-				$this->load->view('dashboard/3-sidebar',	$dados);
-				$this->load->view('dashboard/4-content-open');
-				$this->load->view('dashboard/telas/noticias/tag_noticia_view');
-				$this->load->view('dashboard/4-content-close');
-				$this->load->view('dashboard/5-configbar');
-				$this->load->view('dashboard/6-footer');
+				self::mountDashboard('telas/noticias/tag_noticia_view',	$dados);
 		}
 
 		public	function	salvar_nova_tag()	{
-				self::verificaSessao();
+				Usuario_model::verificaSessao($this->session->userdata('esta_logado'));
 				$getpost	=	filter_input_array(INPUT_POST,	FILTER_DEFAULT);
 				$nome	=	$getpost['nome'];
 				$slug	=	$getpost['slug'];
 				$descricao	=	$getpost['descricao'];
-
 				$sucesso	=	Tag_model::cadastrarTag($nome,	$slug,	$descricao);
 				if	($sucesso)	{
 						$msg	=	"Tag salva com sucesso";
-						echo	"
-								<div class='row'>
-										<div class='alert alert-info alert-dismissible fade in text-center' style='border: 1px solid blue;' role='alert'>
-												<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-														<span aria-hidden='true'>x</span>
-												</button>
-												<strong>$msg</strong>
-										</div>
-								</div>";
+						$alert = Helper::mountAlertBt3($msg, 'info');
+						echo	$alert;
 				}	else	{
 						$msg	=	"Aconteceu um erro ao cadastrar no banco de dados, se persistir informe ao programador.";
-						echo	"
-								<div class='row'>
-										<div class='alert alert-danger alert-dismissible fade in text-center' style='border: 1px solid red;' role='alert'>
-												<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-														<span aria-hidden='true'>x</span>
-												</button>
-												<strong>$msg</strong>
-										</div>
-								</div>";
+						$alert = Helper::mountAlertBt3($msg, 'danger');
+						echo	$alert;
 				}
 		}
 
 		public	function	apagar_tag($id)	{
 				//mostrar msg para o usuario que pode dar erro porque essa tag esta ligada a alguma noticia
-				self::verificaSessao();
+				Usuario_model::verificaSessao($this->session->userdata('esta_logado'));
 				$apagada	=	Tag_model::deleteTag($id);
 				if	($apagada)	{
 						echo	"<script>javascript:history.back(-2)</script>";
@@ -505,54 +394,32 @@ class	Dashboard	extends	CI_Controller	{
 			 ############################################################################ */
 
 		public	function	categoria_noticia()	{
-				self::verificaSessao();
+				Usuario_model::verificaSessao($this->session->userdata('esta_logado'));
 				$dados['menuAtivo']	=	"noticia";
 				$dados['subMenuAtivo']	=	"noticia_03";
-				$this->load->view('dashboard/1-header');
-				$this->load->view('dashboard/2-topbar');
-				$this->load->view('dashboard/3-sidebar',	$dados);
-				$this->load->view('dashboard/4-content-open');
-				$this->load->view('dashboard/telas/noticias/tag_categoria_view');
-				$this->load->view('dashboard/4-content-close');
-				$this->load->view('dashboard/5-configbar');
-				$this->load->view('dashboard/6-footer');
+				self::mountDashboard('telas/noticias/tag_categoria_view',	$dados);
 		}
 
 		public	function	salvar_nova_categoria()	{
-				self::verificaSessao();
+				Usuario_model::verificaSessao($this->session->userdata('esta_logado'));
 				$getpost	=	filter_input_array(INPUT_POST,	FILTER_DEFAULT);
 				$nome	=	$getpost['nome'];
 				$slug	=	$getpost['slug'];
 				$descricao	=	$getpost['descricao'];
-
 				$sucesso	=	Categoria_model::cadastrarCategoria($nome,	$slug,	$descricao);
 				if	($sucesso)	{
 						$msg	=	"Categoria salva com sucesso.";
-						echo	"
-								<div class='row'>
-										<div class='alert alert-info alert-dismissible fade in text-center' style='border: 1px solid blue;' role='alert'>
-												<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-														<span aria-hidden='true'>x</span>
-												</button>
-												<strong>$msg</strong>
-										</div>
-								</div>";
+						$alert = Helper::mountAlertBt3($msg, 'info');
+						echo	$alert;
 				}	else	{
 						$msg	=	"Aconteceu um erro ao cadastrar no banco de dados, se persistir informe ao programador.";
-						echo	"
-								<div class='row'>
-										<div class='alert alert-danger alert-dismissible fade in text-center' style='border: 1px solid red;' role='alert'>
-												<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-														<span aria-hidden='true'>x</span>
-												</button>
-												<strong>$msg</strong>
-										</div>
-								</div>";
+						$alert = Helper::mountAlertBt3($msg, 'danger');
+						echo	$alert;
 				}
 		}
 
 		public	function	apagar_categoria($id)	{
-				self::verificaSessao();
+				Usuario_model::verificaSessao($this->session->userdata('esta_logado'));
 				$apagada	=	Categoria_model::deleteCategoria($id);
 				if	($apagada)	{
 						echo	"<script>javascript:history.back(-2)</script>";
@@ -565,149 +432,87 @@ class	Dashboard	extends	CI_Controller	{
 			 ########################################################################### */
 
 		public	function	link_facebook()	{
-				self::verificaSessao();
+				Usuario_model::verificaSessao($this->session->userdata('esta_logado'));
 				$dados['menuAtivo']	=	"redes_sociais";
 				$dados['subMenuAtivo']	=	"redes_sociais_01";
-
 				$dados['legenda_do_form']	=	"Editar link do facebook";
 				$dados['label']	=	"Link do facebook de sua empresa";
 				$dados['nome_option']	=	"link_rede_social_facebook";
-				$this->load->view('dashboard/1-header');
-				$this->load->view('dashboard/2-topbar');
-				$this->load->view('dashboard/3-sidebar',	$dados);
-				$this->load->view('dashboard/4-content-open');
-				$this->load->view('dashboard/telas/option/editar_option_input_text_view',	$dados);
-				$this->load->view('dashboard/4-content-close');
-				$this->load->view('dashboard/5-configbar');
-				$this->load->view('dashboard/6-footer');
+				self::mountDashboard('telas/option/editar_option_input_text_view',	$dados);
 		}
 
 		public	function	link_instagram()	{
-				self::verificaSessao();
+				Usuario_model::verificaSessao($this->session->userdata('esta_logado'));
 				$dados['menuAtivo']	=	"redes_sociais";
 				$dados['subMenuAtivo']	=	"redes_sociais_02";
-
 				$dados['legenda_do_form']	=	"Editar link do Instagram";
 				$dados['label']	=	"Link do Instagram de sua empresa";
 				$dados['nome_option']	=	"link_rede_social_instagram";
-				$this->load->view('dashboard/1-header');
-				$this->load->view('dashboard/2-topbar');
-				$this->load->view('dashboard/3-sidebar',	$dados);
-				$this->load->view('dashboard/4-content-open');
-				$this->load->view('dashboard/telas/option/editar_option_input_text_view',	$dados);
-				$this->load->view('dashboard/4-content-close');
-				$this->load->view('dashboard/5-configbar');
-				$this->load->view('dashboard/6-footer');
+				self::mountDashboard('telas/option/editar_option_input_text_view',	$dados);
 		}
 
 		public	function	link_twitter()	{
-				self::verificaSessao();
+				Usuario_model::verificaSessao($this->session->userdata('esta_logado'));
 				$dados['menuAtivo']	=	"redes_sociais";
 				$dados['subMenuAtivo']	=	"redes_sociais_03";
-
 				$dados['legenda_do_form']	=	"Editar link do Twitter";
 				$dados['label']	=	"Link do Twitter de sua empresa";
 				$dados['nome_option']	=	"link_rede_social_twitter";
-				$this->load->view('dashboard/1-header');
-				$this->load->view('dashboard/2-topbar');
-				$this->load->view('dashboard/3-sidebar',	$dados);
-				$this->load->view('dashboard/4-content-open');
-				$this->load->view('dashboard/telas/option/editar_option_input_text_view',	$dados);
-				$this->load->view('dashboard/4-content-close');
-				$this->load->view('dashboard/5-configbar');
-				$this->load->view('dashboard/6-footer');
+				self::mountDashboard('telas/option/editar_option_input_text_view',	$dados);
 		}
 
 		public	function	link_youtube()	{
-				self::verificaSessao();
+				Usuario_model::verificaSessao($this->session->userdata('esta_logado'));
 				$dados['menuAtivo']	=	"redes_sociais";
 				$dados['subMenuAtivo']	=	"redes_sociais_04";
-
 				$dados['legenda_do_form']	=	"Editar link do Youtube";
 				$dados['label']	=	"Link do Youtube de sua empresa";
 				$dados['nome_option']	=	"link_rede_social_youtube";
-				$this->load->view('dashboard/1-header');
-				$this->load->view('dashboard/2-topbar');
-				$this->load->view('dashboard/3-sidebar',	$dados);
-				$this->load->view('dashboard/4-content-open');
-				$this->load->view('dashboard/telas/option/editar_option_input_text_view',	$dados);
-				$this->load->view('dashboard/4-content-close');
-				$this->load->view('dashboard/5-configbar');
-				$this->load->view('dashboard/6-footer');
+				self::mountDashboard('telas/option/editar_option_input_text_view',	$dados);
 		}
 
 		public	function	link_gplus()	{
-				self::verificaSessao();
+				Usuario_model::verificaSessao($this->session->userdata('esta_logado'));
 				$dados['menuAtivo']	=	"redes_sociais";
 				$dados['subMenuAtivo']	=	"redes_sociais_05";
-
 				$dados['legenda_do_form']	=	"Editar link do G+";
 				$dados['label']	=	"Link do G+ de sua empresa";
 				$dados['nome_option']	=	"link_rede_social_gplus";
-				$this->load->view('dashboard/1-header');
-				$this->load->view('dashboard/2-topbar');
-				$this->load->view('dashboard/3-sidebar',	$dados);
-				$this->load->view('dashboard/4-content-open');
-				$this->load->view('dashboard/telas/option/editar_option_input_text_view',	$dados);
-				$this->load->view('dashboard/4-content-close');
-				$this->load->view('dashboard/5-configbar');
-				$this->load->view('dashboard/6-footer');
+				self::mountDashboard('telas/option/editar_option_input_text_view',	$dados);
 		}
 
 		public	function	link_linkedin()	{
-				self::verificaSessao();
+				Usuario_model::verificaSessao($this->session->userdata('esta_logado'));
 				$dados['menuAtivo']	=	"redes_sociais";
 				$dados['subMenuAtivo']	=	"redes_sociais_06";
-
 				$dados['legenda_do_form']	=	"Editar link do Linkedin";
 				$dados['label']	=	"Link do Linkedin de sua empresa";
 				$dados['nome_option']	=	"link_rede_social_linkedin";
-				$this->load->view('dashboard/1-header');
-				$this->load->view('dashboard/2-topbar');
-				$this->load->view('dashboard/3-sidebar',	$dados);
-				$this->load->view('dashboard/4-content-open');
-				$this->load->view('dashboard/telas/option/editar_option_input_text_view',	$dados);
-				$this->load->view('dashboard/4-content-close');
-				$this->load->view('dashboard/5-configbar');
-				$this->load->view('dashboard/6-footer');
+				self::mountDashboard('telas/option/editar_option_input_text_view',	$dados);
 		}
 
 		/* Biblioteca de imagens
 			 ########################################################################### */
 
 		public	function	gerenciar_galeria()	{
-				self::verificaSessao();
+				Usuario_model::verificaSessao($this->session->userdata('esta_logado'));
 				$dados['menuAtivo']	=	"galeria";
 				$dados['subMenuAtivo']	=	"galeria_01";
-				$this->load->view('dashboard/1-header');
-				$this->load->view('dashboard/2-topbar');
-				$this->load->view('dashboard/3-sidebar',	$dados);
-				$this->load->view('dashboard/4-content-open');
-				$this->load->view('dashboard/telas/galeria/gerenciar_galeria_view');
-				$this->load->view('dashboard/4-content-close');
-				$this->load->view('dashboard/5-configbar');
-				$this->load->view('dashboard/6-footer');
+				self::mountDashboard('telas/galeria/gerenciar_galeria_view',	$dados);
 		}
 
 		/* configurações gerais
 			 ########################################################################## */
 
 		public	function	editar_senha_usuario()	{
-				self::verificaSessao();
+				Usuario_model::verificaSessao($this->session->userdata('esta_logado'));
 				$dados['menuAtivo']	=	"config";
 				$dados['subMenuAtivo']	=	"config_03";
-				$this->load->view('dashboard/1-header');
-				$this->load->view('dashboard/2-topbar');
-				$this->load->view('dashboard/3-sidebar',	$dados);
-				$this->load->view('dashboard/4-content-open');
-				$this->load->view('dashboard/telas/config/editar_senha_usuario_view');
-				$this->load->view('dashboard/4-content-close');
-				$this->load->view('dashboard/5-configbar');
-				$this->load->view('dashboard/6-footer');
+				self::mountDashboard('telas/config/editar_senha_usuario_view',	$dados);
 		}
 
 		public	function	trocar_senha_usuario()	{
-				self::verificaSessao();
+				Usuario_model::verificaSessao($this->session->userdata('esta_logado'));
 				$getpost	=	filter_input_array(INPUT_POST,	FILTER_DEFAULT);
 				$senha_atual	=	$getpost['senha_atual'];
 				$nova_senha	=	$getpost['senha_nova'];
@@ -750,90 +555,55 @@ class	Dashboard	extends	CI_Controller	{
 		}
 
 		public	function	editar_email_principal()	{
-				self::verificaSessao();
+				Usuario_model::verificaSessao($this->session->userdata('esta_logado'));
 				$dados['menuAtivo']	=	"config";
 				$dados['subMenuAtivo']	=	"config_01";
 				$dados['legenda_do_form']	=	"Email principal ";
 				$dados['label']	=	"Email que irá receber todas as mensagens enviadas de formulários no site";
 				$dados['nome_option']	=	"email_principal";
-				$this->load->view('dashboard/1-header');
-				$this->load->view('dashboard/2-topbar');
-				$this->load->view('dashboard/3-sidebar',	$dados);
-				$this->load->view('dashboard/4-content-open');
-				$this->load->view('dashboard/telas/option/editar_option_input_text_view',	$dados);
-				$this->load->view('dashboard/4-content-close');
-				$this->load->view('dashboard/5-configbar');
-				$this->load->view('dashboard/6-footer');
+				self::mountDashboard('telas/option/editar_option_input_text_view',	$dados);
 		}
 
 		public	function	salvar_option()	{
-				self::verificaSessao();
+				Usuario_model::verificaSessao($this->session->userdata('esta_logado'));
 				$getpost	=	filter_input_array(INPUT_POST,	FILTER_DEFAULT);
 				$valor	=	$getpost['valor_option'];
 				$nome	=	$getpost['nome_option'];
 				$sucesso	=	Option_model::atualizarOption($nome,	$valor);
 				if	($sucesso)	{
 						$msg	=	"Operação realizada com sucesso.";
-						echo	"
-								<div class='row'>
-										<div class='alert alert-info alert-dismissible fade in text-center' style='border: 1px solid blue;' role='alert'>
-												<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-														<span aria-hidden='true'>x</span>
-												</button>
-												<strong>$msg</strong> 
-										</div>
-								</div>";
+						$alert = Helper::mountAlertBt3($msg, 'info');
+						echo	$alert;
 				}	else	{
 						$msg	=	"Aconteceu um erro ao salvar ou você tentou salvar sem editar nada, se persistir informe ao administrador.";
-						echo	"
-								<div class='row'>
-										<div class='alert alert-danger alert-dismissible fade in text-center' style='border: 1px solid blue;' role='alert'>
-												<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-														<span aria-hidden='true'>x</span>
-												</button>
-												<strong>$msg</strong> 
-										</div>
-								</div>";
+						$alert = Helper::mountAlertBt3($msg, 'danger');
+						echo	$alert;
 				}
 		}
 
 		public	function	editar_nome_da_empresa()	{
-				self::verificaSessao();
+				Usuario_model::verificaSessao($this->session->userdata('esta_logado'));
 				$dados['menuAtivo']	=	"config";
 				$dados['subMenuAtivo']	=	"config_02";
 				$dados['legenda_do_form']	=	"Nome da empresa";
 				$dados['label']	=	"Nome de empresa dona deste site.";
 				$dados['nome_option']	=	"nome_da_empresa";
-				$this->load->view('dashboard/1-header');
-				$this->load->view('dashboard/2-topbar');
-				$this->load->view('dashboard/3-sidebar',	$dados);
-				$this->load->view('dashboard/4-content-open');
-				$this->load->view('dashboard/telas/option/editar_option_input_text_view',	$dados);
-				$this->load->view('dashboard/4-content-close');
-				$this->load->view('dashboard/5-configbar');
-				$this->load->view('dashboard/6-footer');
+				self::mountDashboard('telas/option/editar_option_input_text_view',	$dados);
 		}
 
 		/* modo de manutenção
 			 ########################################################################## */
 
 		public	function	site_em_manutencao()	{
-				self::verificaSessao();
+				Usuario_model::verificaSessao($this->session->userdata('esta_logado'));
 				$dados['menuAtivo']	=	"config";
 				$dados['subMenuAtivo']	=	"config_04";
 				$dados['ativo']	=	Option_model::recuperarOption('manutencao');
-				$this->load->view('dashboard/1-header');
-				$this->load->view('dashboard/2-topbar');
-				$this->load->view('dashboard/3-sidebar',	$dados);
-				$this->load->view('dashboard/4-content-open');
-				$this->load->view('dashboard/telas/manutencao/manutencao_view',	$dados);
-				$this->load->view('dashboard/4-content-close');
-				$this->load->view('dashboard/5-configbar');
-				$this->load->view('dashboard/6-footer');
+				self::mountDashboard('telas/manutencao/manutencao_view',	$dados);
 		}
 
 		public	function	ativar_modo_manutencao()	{
-				self::verificaSessao();
+				Usuario_model::verificaSessao($this->session->userdata('esta_logado'));
 				$nome	=	"manutencao";
 				$valor	=	TRUE;
 				Option_model::atualizarOption($nome,	$valor);
@@ -841,7 +611,7 @@ class	Dashboard	extends	CI_Controller	{
 		}
 
 		public	function	desativar_modo_manutencao()	{
-				self::verificaSessao();
+				Usuario_model::verificaSessao($this->session->userdata('esta_logado'));
 				$nome	=	"manutencao";
 				$valor	=	FALSE;
 				Option_model::atualizarOption($nome,	$valor);
