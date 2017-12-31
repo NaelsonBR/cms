@@ -314,7 +314,7 @@ class	Helper	extends	CI_Model	{
 				$config['maintain_ratio']	=	TRUE;
 				$config['height']	=	$altura;
 
-				$CI	=	&	get_instance();
+				$CI	=	get_instance();
 				$CI->load->library('image_lib',	$config);
 				$CI->image_lib->resize();
 		}
@@ -332,7 +332,7 @@ class	Helper	extends	CI_Model	{
 				$config['maintain_ratio']	=	TRUE;
 				$config['width']	=	$largura;
 
-				$CI	=	&	get_instance();
+				$CI	=	get_instance();
 				$CI->load->library('image_lib',	$config);
 				$CI->image_lib->resize();
 		}
@@ -352,7 +352,7 @@ class	Helper	extends	CI_Model	{
 				$config['width']	=	$largura;
 				$config['height']	=	$altura;
 
-				$CI	=	&	get_instance();
+				$CI	=	get_instance();
 				$CI->load->library('image_lib',	$config);
 				$CI->image_lib->resize();
 		}

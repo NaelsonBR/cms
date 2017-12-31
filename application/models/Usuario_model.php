@@ -28,8 +28,6 @@ class	Usuario_model	extends	CI_Model	{
 				parent::__construct();
 				/* abaixo deverão ser carregados helpers, libraries e models utilizados
 					 por este model */
-				$this->load->model('Conect_model');
-				$this->load->model('Helper');
 		}
 
 		//metodos estaticos

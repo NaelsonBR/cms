@@ -76,6 +76,10 @@ class	Dashboard	extends	CI_Controller	{
 				}
 		}
 		
+		/**
+			* recebe como parametro a view central do painel que deve estar dentro da pasta views/dashboard e o array de variaveis que serão
+		 * usadas na view
+			*/
 		public static	function mountDashboard($tela_central, $dados){
 				$CI	=	get_instance();
 				$CI->load->view('dashboard/1-header', $dados);

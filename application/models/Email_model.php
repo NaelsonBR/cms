@@ -47,7 +47,6 @@ class	Email_model	extends	CI_Model	{
 						$mail->Subject	=	$assunto;
 						$mail->Body	=	$mensagem;
 						$mail->AltBody	=	'Por favor visualize esse email em um leitor de email html';
-
 						$mail->send();
 						// Limpa os destinatários e os anexos
 						$mail->ClearAllRecipients();
@@ -55,8 +54,6 @@ class	Email_model	extends	CI_Model	{
 						return	TRUE;
 				}	catch	(Exception	$e)	{
 						Log_model::insertLog('email_model/emailHTML',	'Erro ao enviar o email, <br>'	.	$mail->ErrorInfo);
-						echo	'Message could not be sent.';
-						echo	'Mailer Error: '	.	$mail->ErrorInfo;
 				}
 		}
 

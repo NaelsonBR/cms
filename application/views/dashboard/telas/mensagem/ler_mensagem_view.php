@@ -33,6 +33,11 @@ Mensagem_model::marcarMsgComoLida($msg->getId());
 		<div class="container-fluid">
 				<div class="row">
 						<form method="post" id="form_responder_mensagem">
+								<?php
+								$csrf_name	=	$this->security->get_csrf_token_name();
+								$csrf_hash	=	$this->security->get_csrf_hash();
+								echo	"<input type='hidden' name='$csrf_name' value='$csrf_hash' />";
+								?>
 								<div class="form-group">
 										<label for="input_titulo">Assunto</label>
 										<input type="text" class="form-control input-lg" id="input_titulo" 
@@ -58,7 +63,7 @@ Mensagem_model::marcarMsgComoLida($msg->getId());
 <script>
 		$(document).ready(function () {
 				$('#editor1').ckeditor();
-				$('#btn_responder').click(function(){
+				$('#btn_responder').click(function () {
 						$('#responder_msg').toggle('slow');
 				});
 				$('#form_responder_mensagem').submit(function () {
