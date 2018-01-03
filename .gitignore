@@ -2,3 +2,6 @@
 /TesteComposer/nbproject/private/
 /application/nbproject/private/
 anotacoes
+
+# Config padrão do codeigniter
+application/config/database.php
