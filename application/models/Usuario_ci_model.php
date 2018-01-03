@@ -61,25 +61,34 @@ class Usuario_ci_model extends CI_Model {
 		return $this->db->insert('usuario', $userArray);
     }
 
-	// Old methods
-    public static function getObjUsuario($id) {
-        $usuario = new Usuario_model();
-        $con = Conect_model::conectar();
-        $rs = $con->query("SELECT * FROM `usuario` WHERE id = '$id'");
-        while ($row = $rs->fetch(PDO::FETCH_OBJ)) {
-            $usuario->id = $row->id;
-            $usuario->nome = $row->nome;
-            $usuario->login = $row->login;
-            $usuario->telefone = $row->telefone;
-            $usuario->email = $row->email;
-            $usuario->nivel_de_acesso = $row->nivel_de_acesso;
-            $usuario->data_de_cadastro = $row->data_de_cadastro;
-            $usuario->data_de_ultimo_acesso = $row->data_de_ultimo_acesso;
-            $usuario->status = $row->status;
-        }
-        return $usuario;
-    }
+	/**
+	 * Recupera um usuário baseado em seu ID e retorna um array
+	 * 
+	 * == Nota do refactor ==
+	 * Aqui não faz sentido usar como um objeto, visto que com o WHERE via ID, 
+	 * apenas UM usuário será retornado.
+	 * 
+	 * É muito mais simples trabalhar com um array do que com um objeto e 
+	 * você evita ficar reescrevendo getters e setters
+	 * 
+	 * Documentação do get_where() no query builder do Codeigniter:
+	 * 
+	 * https://www.codeigniter.com/userguide3/database/query_builder.html#selecting-data
+	 */ 
+    public function getUsuario($id) {
 
+		$query = $this->db->get_where('usuario', array('id' => $id));
+
+		// Se a query retornar vazia, retorna false
+		if(!$query){
+			return FALSE;
+		}
+		// Senão, retorna o array do usuário
+		return $query->row_array();
+    }
+	
+	// AINDA A REFATORAR
+	// Old methods
     public static function editarUsuario($id, $nome, $login, $senha, $telefone, $email, $nivel_de_acesso, $data_de_cadastro, $data_de_ultimo_acesso, $status) {
         $con = Conect_model::conectar();
         $select = $con->prepare("UPDATE `usuario` SET 

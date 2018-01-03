@@ -46,8 +46,10 @@ class Test_user_model extends CI_Controller {
         var_dump($query); // Vai ser true ou false
 
     }
-
-    public function get_obj_usuario(){
-
+    // Passando um id genérico para testar o método
+    public function get_usuario($id = 1){
+        $usuario = $this->Usuario_ci_model->getUsuario($id);
+        echo "O usuário é:";
+        var_dump($usuario);
     }
 }
