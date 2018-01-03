@@ -15,7 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /* toda Model DEVE estender CI_Model */
 
-class Usuario_model_ci extends CI_Model {
+class Usuario_ci_model extends CI_Model {
 
     //atributos
     private $id;
@@ -30,44 +30,38 @@ class Usuario_model_ci extends CI_Model {
 
     function __construct() {
         /* contrutor da classe pai */
-		parent::__construct();
-		
+        parent::__construct();
+
+        /*
+		  Aqui basta esse método para conectar ao banco.
+		  Já tem tudo pronto na model "Pai" CI_Model
+          Necessário configurar o banco de dados no arquivo:
+          application/config/database.php
+         */
+        $this->load->database();
+
         /* abaixo deverão ser carregados helpers, libraries e models utilizados
           por este model */
     }
 
-    //metodos estaticos
-    public function cadastrarUsuario($nome, $login, $senha, $telefone, $email, $nivel_de_acesso, $data_de_cadastro, $data_de_ultimo_acesso, $status) {
-        try {
-            $con = Conect_model::conectar();
-            //preparando a query
-            $stmt = $con->prepare("INSERT INTO usuario
-										(
-												nome, login, senha, telefone, email, nivel_de_acesso, data_de_cadastro, data_de_ultimo_acesso, status
-										)
-								VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
-
-            //configurando os valores
-            $stmt->bindParam(1, $nome);
-            $stmt->bindParam(2, $login);
-            $stmt->bindParam(3, $senha);
-            $stmt->bindParam(4, $telefone);
-            $stmt->bindParam(5, $email);
-            $stmt->bindParam(6, $nivel_de_acesso);
-            $stmt->bindParam(7, $data_de_cadastro);
-            $stmt->bindParam(8, $data_de_ultimo_acesso);
-            $stmt->bindParam(9, $status);
-            $stmt->execute();
-            if ($stmt->rowCount() > 0) {
-                return TRUE;
-            } else {
-                return FALSE;
-            }
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
+    /**
+     * Cadastra usuários no banco de dados
+     * 
+     * Utilizado o query builder do Codeigniter
+     * 
+     * Documentação: 
+     * https://www.codeigniter.com/userguide3/database/query_builder.html#inserting-data
+     */
+    public function cadastrarUsuario($userArray) {
+		
+		/* 
+		Basta essa única linha pra fazer o insert
+		O retorno vai ser TRUE se deu tudo certo e FALSE se der errado
+		*/
+		return $this->db->insert('usuario', $userArray);
     }
 
+	// Old methods
     public static function getObjUsuario($id) {
         $usuario = new Usuario_model();
         $con = Conect_model::conectar();
