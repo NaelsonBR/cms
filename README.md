@@ -28,8 +28,11 @@ Esses dados podem ser editaveis pelo painel e exibidos no site com facilidade
 ## Instruções de Deploy
 
 Configurações para funcionar em localhost
-- subir no seu mysql a base que esta na raiz
-- configurar a base_url em 
+
+- crie um banco de dados para o projeto
+- importar o arquivo `cmd_create.sql` que esta na raiz
+- caso queira, importar os dados de exemplo do arquivo `sample_data.sql`
+- configurar a base_url em:
 
 ```
 # Linha 26
@@ -46,6 +49,6 @@ application/config/config.php
 - configurar os dados dos bancos no model connect (o `$con` é chamado pela função estática desse model)
 
 ### Informações adicionais :shipit:
-- Todos os models criados na pasta models serão carregados no autoload nativo do codeigniter por meio de uma gambiarra que
-fiz no arquivo `aplication/config/autoload.php`
-- o model Helper é onde eu guardo todas as funções uteis, depois vamos tranforma-lo em um helper mesmo conforme o padrao do codeigniter
+
+- Todos os models criados na pasta models serão carregados no autoload nativo do codeigniter por meio de uma gambiarra que fiz no arquivo `aplication/config/autoload.php`
+- o model Helper é onde eu guardo todas as funções uteis, depois vamos transformá-lo em um helper conforme o padrao do codeigniter
