@@ -87,29 +87,17 @@ class Usuario_ci_model extends CI_Model {
 		return $query->row_array();
     }
 	
-	// AINDA A REFATORAR
-	// Old methods
-    public static function editarUsuario($id, $nome, $login, $senha, $telefone, $email, $nivel_de_acesso, $data_de_cadastro, $data_de_ultimo_acesso, $status) {
-        $con = Conect_model::conectar();
-        $select = $con->prepare("UPDATE `usuario` SET 
-						`nome` = :nome, `login` = :login, `senha` = :senha, `telefone` = :telefone, `email` = :email, `nivel_de_acesso` = :nivel_de_acesso, `data_de_cadastro` = :data_de_cadastro, `data_de_ultimo_acesso` = :data_de_ultimo_acesso, `status` = :status
-						WHERE `usuario`.`id` = :id");
-        $select->bindParam(':nome', $nome);
-        $select->bindParam(':login', $login);
-        $select->bindParam(':senha', $senha);
-        $select->bindParam(':telefone', $telefone);
-        $select->bindParam(':email', $email);
-        $select->bindParam(':nivel_de_acesso', $nivel_de_acesso);
-        $select->bindParam(':data_de_cadastro', $data_de_cadastro);
-        $select->bindParam(':data_de_ultimo_acesso', $data_de_ultimo_acesso);
-        $select->bindParam(':status', $status);
-        $select->bindParam(':id', $id);
-        $select->execute();
-        if ($select->rowCount() > 0) {
-            return TRUE;
-        } else {
-            return FALSE;
-        }
+	
+	/**
+	 * Atualiza os dados de um usuário no banco
+	 */
+    public function editarUsuario($id_usuario, $dados_usuario) {
+		
+		$this->db->where('id', $id_usuario);
+		
+		// Returna True ou False
+		return $this->db->update('usuario', $dados_usuario);
+
     }
 
     public static function deleteUsuario($id) {

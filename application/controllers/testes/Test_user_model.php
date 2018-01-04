@@ -20,8 +20,6 @@ class Test_user_model extends CI_Controller {
 
     public function cadastrar_usuario(){
 
-        // Instancia a model dentro do CI
-
         // Gerando um sample para testar a conexão com o banco e o método criado na model
         $dados_usuario = Array (
             'id' => NULL,
@@ -51,5 +49,25 @@ class Test_user_model extends CI_Controller {
         $usuario = $this->Usuario_ci_model->getUsuario($id);
         echo "O usuário é:";
         var_dump($usuario);
+    }
+
+    public function update_usuario($id){
+
+         // Gerando um sample para testar a conexão com o banco e o método criado na model
+         $dados_usuario = Array (
+            'nome' => "Asdrúbal da Silva",
+            'login' => "NOVO_ASDRUBAL",
+            'email' => 'novo_email@email.cms',
+            'data_de_ultimo_acesso' => date("Y-m-d H:i:s"),
+        );
+
+        // Mostrando na tela apenas os resultados dos testes
+        echo "Dados do sample abaixo: <hr>";
+        var_dump($dados_usuario);
+
+        $query = $this->Usuario_ci_model->editarUsuario($id , $dados_usuario);
+        echo "<hr>Resultado do banco de dados: ";
+        var_dump($query); // Vai ser true ou false
+
     }
 }
