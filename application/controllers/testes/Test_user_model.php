@@ -54,6 +54,15 @@ class Test_user_model extends CI_Controller {
         var_dump($usuario);
         echo "</pre>";
     }
+    
+    // repetindo o metodo anterior com meu metodo
+    public function get_objeto_usuario($id = 1) {
+        $usuario = $this->Usuario_ci_model->getUsuario($id);
+        echo "O usuário é:";
+        echo "<pre>";
+        var_dump($usuario);
+        echo "</pre>";
+    }
 
     public function update_usuario($id) {
 
