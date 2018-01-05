@@ -5,7 +5,6 @@
 	* peterson.jfp@gmail.com
 	* 51 9921298121
 	*/
-
 defined('BASEPATH')	OR	exit('No direct script access allowed');
 
 class	Helper	extends	CI_Model	{
@@ -13,12 +12,10 @@ class	Helper	extends	CI_Model	{
 		function	__construct()	{
 				parent::__construct();
 				// aqui deverá ser carregado os helpers, libraries e models necessários
-				$this->load->model('Option_model');
-				$this->load->library('My_WideImage');
 		}
-		
-		public	static	function verificaManutencao(){
-				$manutencao = Option_model::recuperarOption('manutencao');
+
+		public	static	function	verificaManutencao()	{
+				$manutencao	=	Option_model::recuperarOption('manutencao');
 				if	($manutencao)	{
 						redirect(base_url('pages/manutencao'));
 						exit();
@@ -183,7 +180,7 @@ class	Helper	extends	CI_Model	{
 				$data_final	=	"$ano_somado-$mes-$dia";
 				return	$data_final;
 		}
-		
+
 		/* manipulação de imagens
 			 ############################################################################ */
 
@@ -294,9 +291,14 @@ class	Helper	extends	CI_Model	{
 			* true ou false
 			*/
 		public	static	function	apagarImagem($imagem)	{
-				$url	=	"assets/uploads/$imagem";
-				$sucesso	=	unlink($url);
-				return	$sucesso;
+				//define a pasta
+				if	(self::VerSeNomeEstaDisponivel('assets/uploads/',	$imagem))	{
+						return	TRUE;
+				}	else	{
+						$url	=	"assets/uploads/$imagem";
+						$sucesso	=	unlink($url);
+						return	$sucesso;
+				}
 		}
 
 		/**
@@ -306,9 +308,15 @@ class	Helper	extends	CI_Model	{
 			* @param string $altura novo heigth da imagem
 			*/
 		public	static	function	redimensionarImagemPorAltura($caminho,	$altura)	{
-				$imagem	=	WideImage::load($caminho);
-				$imagem2	=	$imagem->resize(null,	$altura,	'inside');
-				$imagem2->saveToFile($caminho);
+				$config['image_library']	=	'gd2';
+				$config['source_image']	=	$caminho;
+				$config['create_thumb']	=	FALSE;
+				$config['maintain_ratio']	=	TRUE;
+				$config['height']	=	$altura;
+
+				$CI	=	get_instance();
+				$CI->load->library('image_lib',	$config);
+				$CI->image_lib->resize();
 		}
 
 		/**
@@ -318,22 +326,35 @@ class	Helper	extends	CI_Model	{
 			* @param string $largura nova width da imagem
 			*/
 		public	static	function	redimensionarImagemPorLargura($caminho,	$largura)	{
-				$imagem	=	WideImage::load($caminho);
-				$imagem2	=	$imagem->resize($largura,	NULL,	'inside');
-				$imagem2->saveToFile($caminho);
+				$config['image_library']	=	'gd2';
+				$config['source_image']	=	$caminho;
+				$config['create_thumb']	=	FALSE;
+				$config['maintain_ratio']	=	TRUE;
+				$config['width']	=	$largura;
+
+				$CI	=	get_instance();
+				$CI->load->library('image_lib',	$config);
+				$CI->image_lib->resize();
 		}
 
 		/**
 			* Redimensiona a imagem para o valor exato passado esticando-a conforme necessario, 
-			* pode destorcer a imagem se esta for upada com proporções diferentes.
+			* pode distorcer a imagem se esta for upada com proporções diferentes.
 			* @param string $caminho Localização da imagem NÃO HTTP
 			* @param string $largura nova width da imagem
 			* @param string $altura novo heigth da imagem
 			*/
 		public	static	function	redimensionarImagem($caminho,	$largura,	$altura)	{
-				$imagem	=	WideImage::load($caminho);
-				$imagem2	=	$imagem->resize($largura,	$altura,	'fill');
-				$imagem2->saveToFile($caminho);
+				$config['image_library']	=	'gd2';
+				$config['source_image']	=	$caminho;
+				$config['create_thumb']	=	FALSE;
+				$config['maintain_ratio']	=	FALSE;
+				$config['width']	=	$largura;
+				$config['height']	=	$altura;
+
+				$CI	=	get_instance();
+				$CI->load->library('image_lib',	$config);
+				$CI->image_lib->resize();
 		}
 
 		/* manipulação de string
@@ -348,8 +369,10 @@ class	Helper	extends	CI_Model	{
 						while	(substr($Texto,	$QuantidadeCaracteres,	1)	<>	' '	&&	($QuantidadeCaracteres	<	strlen($Texto)))	{
 								$QuantidadeCaracteres++;
 						}
-				}
-				return	substr($Texto,	0,	$QuantidadeCaracteres)	.	'...';
+						return	substr($Texto,	0,	$QuantidadeCaracteres)	.	'...';
+				}		else	{
+						return $texto;
+				}				
 		}
 
 		/**
@@ -358,8 +381,8 @@ class	Helper	extends	CI_Model	{
 			*/
 		public	static	function	criarSlug($string)	{
 				$string	=	strtolower(trim(utf8_decode($string)));
-				$before	=	'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûýýþÿRr';
-				$after	=	'aaaaaaaceeeeiiiidnoooooouuuuybsaaaaaaaceeeeiiiidnoooooouuuyybyRr';
+				$before	=	'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûýýþÿRr²³°';
+				$after	=	'aaaaaaaceeeeiiiidnoooooouuuuybsaaaaaaaceeeeiiiidnoooooouuuyybyRr23o';
 				$string	=	strtr($string,	utf8_decode($before),	$after);
 				$replace	=	array(
 						'/[^a-z0-9.-]/'	=>	'-',
@@ -370,12 +393,27 @@ class	Helper	extends	CI_Model	{
 				$string	=	preg_replace(array('/([`^~\'"])/',	'/([-]{2,}|[-+]+|[\s]+)/',	'/(,-)/'),	array(null,	'-',	', '),	iconv('UTF-8',	'ASCII//TRANSLIT',	$string));
 				return	$string;
 		}
+		
+		/**
+			* Monta um alert-dismissable do bootstrap 3 com a mensagem e o tipo passados e o retorna
+			*/
+		public	static	function mountAlertBt3($mensagem, $tipo = 'primary'){
+				$alert = "	<div class='row'>
+														<div class='alert alert-$tipo alert-dismissible fade in text-center' style='border: 1px solid #000;' role='alert'>
+																<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+																		<span aria-hidden='true'>x</span>
+																</button>
+																<strong>$mensagem</strong> 
+														</div>
+											  </div>";
+				return $alert;
+		}
 
 		/* manipulação de csv
 			 ############################################################################ */
 
 		public	static	function	gerarEBaixarCsv($array_de_arrays)	{
-				self::cabecalhoDownloadCsv("Seus_clientes_"	.	date("d-m-Y")	.	"_SuaFidelidade.csv");
+				self::cabecalhoDownloadCsv("contatos-"	.	date("d-m-Y")	.	".csv");
 				echo	self::arrayParaCsv($array_de_arrays);
 				die();
 		}
@@ -410,9 +448,10 @@ class	Helper	extends	CI_Model	{
 				header("Content-Disposition: attachment;filename={$filename}");
 				header("Content-Transfer-Encoding: binary");
 		}
-		
+
 		/* Valores
-		################################################################*/
+			 ################################################################ */
+
 		/**
 			* recebe um numero com virgula (99,90) e retorna um com ponto (99.00)
 			*/
@@ -528,10 +567,10 @@ class	Helper	extends	CI_Model	{
 						$ipaddress	=	'UNKNOWN';
 				return	$ipaddress;
 		}
-		
-		/*Geração de senha, identificadores e string aleatórias
-		###############################################################*/
-		
+
+		/* Geração de senha, identificadores e string aleatórias
+			 ############################################################### */
+
 		/**
 			* gera uma senha aleatoria contendo numeros e letras minusculas
 			*/
@@ -542,34 +581,22 @@ class	Helper	extends	CI_Model	{
 								$numero	=	rand(1,	36);
 								$id_aleatorio	.=	self::valorAleatorio($numero);
 						}
+				}	else	{
+						return	'';
 				}
 				return	$id_aleatorio;
 		}
 
 		/**
-			* gera uma senha contendo letras maiusculas e minusculas, 
-			* numeros e caraceteres especiais
-			*/
-		public	static	function	gerarSenhaComplexa($tamanho)	{
-				if	($tamanho	>	0)	{
-						$id_aleatorio	=	"";
-						for	($i	=	1;	$i	<=	$tamanho;	$i++)	{
-								$numero	=	rand(1,	80);
-								$id_aleatorio	.=	self::valorAleatorioComplexo($numero);
-						}
-				}
-				return	$id_aleatorio;
-		}
-
-		/**
-			* gera um id unico alfanumerico baseado no microsegundo atual com prefixo e sufixo aleatorios
+			* gera um identificador unico alfanumerico baseado no microsegundo atual com prefixo(6) e sufixo(6) aleatorios
+			* retorna uma string unica de aproximadamente 25 algarismos
 			*/
 		public	static	function	gerarIdUnico()	{
 				$p1	=	self::gerarSenha(6);
 				$p2	=	uniqid();
 				$p3	=	self::gerarSenha(6);
 				$id	=	"$p1"	.	"$p2"	.	"$p3";
-				return	$id;
+				return	strtolower($id);
 		}
 
 		public	static	function	gerarLoginCliente($nome_completo)	{
@@ -587,361 +614,80 @@ class	Helper	extends	CI_Model	{
 		private	static	function	valorAleatorio($numero)	{
 				switch	($numero)	{
 						case	"1":
-								$valor	=	"A";
-								break;
+								return	"A";
 						case	"2":
-								$valor	=	"B";
-								break;
+								return	"B";
 						case	"3":
-								$valor	=	"C";
-								break;
+								return	"C";
 						case	"4":
-								$valor	=	"D";
-								break;
+								return	"D";
 						case	"5":
-								$valor	=	"E";
-								break;
+								return	"E";
 						case	"6":
-								$valor	=	"F";
-								break;
+								return	"F";
 						case	"7":
-								$valor	=	"G";
-								break;
+								return	"G";
 						case	"8":
-								$valor	=	"H";
-								break;
+								return	"H";
 						case	"9":
-								$valor	=	"I";
-								break;
+								return	"I";
 						case	"10":
-								$valor	=	"J";
-								break;
+								return	"J";
 						case	"11":
-								$valor	=	"K";
-								break;
+								return	"K";
 						case	"12":
-								$valor	=	"L";
-								break;
+								return	"L";
 						case	"13":
-								$valor	=	"M";
-								break;
+								return	"M";
 						case	"14":
-								$valor	=	"N";
-								break;
+								return	"N";
 						case	"15":
-								$valor	=	"0";
-								break;
+								return	"0";
 						case	"16":
-								$valor	=	"P";
-								break;
+								return	"P";
 						case	"17":
-								$valor	=	"Q";
-								break;
+								return	"Q";
 						case	"18":
-								$valor	=	"R";
-								break;
+								return	"R";
 						case	"19":
-								$valor	=	"S";
-								break;
+								return	"S";
 						case	"20":
-								$valor	=	"T";
-								break;
+								return	"T";
 						case	"21":
-								$valor	=	"U";
-								break;
+								return	"U";
 						case	"22":
-								$valor	=	"V";
-								break;
+								return	"V";
 						case	"23":
-								$valor	=	"W";
-								break;
+								return	"W";
 						case	"24":
-								$valor	=	"X";
-								break;
+								return	"X";
 						case	"25":
-								$valor	=	"Y";
-								break;
+								return	"Y";
 						case	"26":
-								$valor	=	"Z";
-								break;
+								return	"Z";
 						case	"27":
-								$valor	=	"0";
-								break;
+								return	"0";
 						case	"28":
-								$valor	=	"1";
-								break;
+								return	"1";
 						case	"29":
-								$valor	=	"2";
-								break;
+								return	"2";
 						case	"30":
-								$valor	=	"3";
-								break;
+								return	"3";
 						case	"31":
-								$valor	=	"4";
-								break;
+								return	"4";
 						case	"32":
-								$valor	=	"5";
-								break;
+								return	"5";
 						case	"33":
-								$valor	=	"6";
-								break;
+								return	"6";
 						case	"34":
-								$valor	=	"7";
-								break;
+								return	"7";
 						case	"35":
-								$valor	=	"8";
-								break;
+								return	"8";
 						case	"36":
-								$valor	=	"9";
-								break;
+								return	"9";
+						default	:
+								return	'A';
 				}
-				return	$valor;
-		}
-
-		private	static	function	valorAleatorioComplexo($numero)	{
-				switch	($numero)	{
-						case	"1":
-								$valor	=	"a";
-								break;
-						case	"2":
-								$valor	=	"b";
-								break;
-						case	"3":
-								$valor	=	"c";
-								break;
-						case	"4":
-								$valor	=	"d";
-								break;
-						case	"5":
-								$valor	=	"e";
-								break;
-						case	"6":
-								$valor	=	"f";
-								break;
-						case	"7":
-								$valor	=	"g";
-								break;
-						case	"8":
-								$valor	=	"h";
-								break;
-						case	"9":
-								$valor	=	"i";
-								break;
-						case	"10":
-								$valor	=	"j";
-								break;
-						case	"11":
-								$valor	=	"k";
-								break;
-						case	"12":
-								$valor	=	"l";
-								break;
-						case	"13":
-								$valor	=	"m";
-								break;
-						case	"14":
-								$valor	=	"n";
-								break;
-						case	"15":
-								$valor	=	"o";
-								break;
-						case	"16":
-								$valor	=	"p";
-								break;
-						case	"17":
-								$valor	=	"q";
-								break;
-						case	"18":
-								$valor	=	"r";
-								break;
-						case	"19":
-								$valor	=	"s";
-								break;
-						case	"20":
-								$valor	=	"t";
-								break;
-						case	"21":
-								$valor	=	"u";
-								break;
-						case	"22":
-								$valor	=	"v";
-								break;
-						case	"23":
-								$valor	=	"w";
-								break;
-						case	"24":
-								$valor	=	"x";
-								break;
-						case	"25":
-								$valor	=	"y";
-								break;
-						case	"26":
-								$valor	=	"z";
-								break;
-						case	"27":
-								$valor	=	"0";
-								break;
-						case	"28":
-								$valor	=	"1";
-								break;
-						case	"29":
-								$valor	=	"2";
-								break;
-						case	"30":
-								$valor	=	"3";
-								break;
-						case	"31":
-								$valor	=	"4";
-								break;
-						case	"32":
-								$valor	=	"5";
-								break;
-						case	"33":
-								$valor	=	"6";
-								break;
-						case	"34":
-								$valor	=	"7";
-								break;
-						case	"35":
-								$valor	=	"8";
-								break;
-						case	"36":
-								$valor	=	"9";
-								break;
-						case	"37":
-								$valor	=	"A";
-								break;
-						case	"38":
-								$valor	=	"B";
-								break;
-						case	"39":
-								$valor	=	"C";
-								break;
-						case	"40":
-								$valor	=	"D";
-								break;
-						case	"41":
-								$valor	=	"E";
-								break;
-						case	"42":
-								$valor	=	"F";
-								break;
-						case	"43":
-								$valor	=	"G";
-								break;
-						case	"44":
-								$valor	=	"H";
-								break;
-						case	"45":
-								$valor	=	"I";
-								break;
-						case	"46":
-								$valor	=	"J";
-								break;
-						case	"47":
-								$valor	=	"K";
-								break;
-						case	"48":
-								$valor	=	"L";
-								break;
-						case	"49":
-								$valor	=	"M";
-								break;
-						case	"50":
-								$valor	=	"N";
-								break;
-						case	"51":
-								$valor	=	"O";
-								break;
-						case	"52":
-								$valor	=	"P";
-								break;
-						case	"53":
-								$valor	=	"Q";
-								break;
-						case	"54":
-								$valor	=	"R";
-								break;
-						case	"55":
-								$valor	=	"S";
-								break;
-						case	"56":
-								$valor	=	"T";
-								break;
-						case	"57":
-								$valor	=	"Y";
-								break;
-						case	"58":
-								$valor	=	"U";
-								break;
-						case	"59":
-								$valor	=	"V";
-								break;
-						case	"60":
-								$valor	=	"W";
-								break;
-						case	"61":
-								$valor	=	"X";
-								break;
-						case	"62":
-								$valor	=	"Z";
-								break;
-						case	"63":
-								$valor	=	"*";
-								break;
-						case	"64":
-								$valor	=	"-";
-								break;
-						case	"65":
-								$valor	=	"/";
-								break;
-						case	"66":
-								$valor	=	"´";
-								break;
-						case	"67":
-								$valor	=	"`";
-								break;
-						case	"68":
-								$valor	=	"^";
-								break;
-						case	"69":
-								$valor	=	"~";
-								break;
-						case	"70":
-								$valor	=	"!";
-								break;
-						case	"71":
-								$valor	=	"@";
-								break;
-						case	"72":
-								$valor	=	"#";
-								break;
-						case	"73":
-								$valor	=	'$';
-								break;
-						case	"74":
-								$valor	=	"%";
-								break;
-						case	"75":
-								$valor	=	"&";
-								break;
-						case	"76":
-								$valor	=	"<";
-								break;
-						case	"77":
-								$valor	=	">";
-								break;
-						case	"78":
-								$valor	=	"§";
-								break;
-						case	"79":
-								$valor	=	"=";
-								break;
-						case	"80":
-								$valor	=	")";
-								break;
-				}
-				return	$valor;
 		}
 
 }
