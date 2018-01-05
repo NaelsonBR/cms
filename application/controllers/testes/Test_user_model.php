@@ -82,5 +82,25 @@ class Test_user_model extends CI_Controller {
         echo "<hr>Resultado do banco de dados: ";
         var_dump($query); // Vai ser true ou false
     }
+    
+    public function update_obj_usuario($id) {
+        //instanciando o objeto
+        $usuario = Usuario_ci_model::getObjUsuario($id);
+        //exibindo na tela
+        echo "<p>Objeto antes de ser modificado</p>";
+        echo "<pre>";
+        var_dump($usuario);
+        echo "</pre>";
+        //modificando
+        $usuario->setNome('teste3');
+        $usuario->setEmail('teste@testador.com');
+        //salvando
+        $usuario->autoSave();
+        //exibindo o resultado
+        echo "<p>Objeto depois de ser modificado pelos setters</p>";
+        echo "<pre>";
+        var_dump($usuario);
+        echo "</pre>";
+    }
 
 }

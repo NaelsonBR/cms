@@ -92,10 +92,14 @@ class Usuario_ci_model extends CI_Model {
      * propria classe, popula-lo e retorna-lo, agora com esse objeto instanciado no controller
      * posso exibir seus attr com getters ou se precisar editar uso setter e depois dou um autosave.
      * Sim, o codigo ficou maior e parece mais demorado fazer assim, mas não esquece que vou ajustar
-     * o gerador para entregar models assim prontos em um clique
+     * o gerador para entregar models assim prontos em um clique, eu queria, mas não resisto a usar
+     * pelo menos um metodo estatico, não faria diferença se não fosse mas para o netbeans
+     * reconhecer o objeto como daquela classe e carregar todo o autocomplete dele eu 
+     * preciso fazer assim
      */
-    public function getObjUsuario($id) {
-        $query = $this->db->get_where('usuario', array('id' => $id));
+    public static function getObjUsuario($id) {
+        $ci =& get_instance();
+        $query = $ci->db->get_where('usuario', array('id' => $id));
 		// Se a query retornar vazia, retorna false
 		if(!$query){
 			return FALSE;
