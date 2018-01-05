@@ -76,9 +76,7 @@ class Usuario_ci_model extends CI_Model {
 	 * https://www.codeigniter.com/userguide3/database/query_builder.html#selecting-data
 	 */ 
     public function getUsuario($id) {
-
 		$query = $this->db->get_where('usuario', array('id' => $id));
-
 		// Se a query retornar vazia, retorna false
 		if(!$query){
 			return FALSE;
@@ -86,20 +84,56 @@ class Usuario_ci_model extends CI_Model {
 		// Senão, retorna o array do usuário
 		return $query->row_array();
     }
+    
+    /**
+     * Aqui eu fiz um return objeto que atende perfeitamente ao meu estilo de 
+     * programar sem sair do padrao do codeigniter, uma vez que o proprio metodo 
+     * row_object ja retorna um objeto stdClass, tudo que fiz foi instanciar um obj da 
+     * propria classe, popula-lo e retorna-lo, agora com esse objeto instanciado no controller
+     * posso exibir seus attr com getters ou se precisar editar uso setter e depois dou um autosave.
+     * Sim, o codigo ficou maior e parece mais demorado fazer assim, mas não esquece que vou ajustar
+     * o gerador para entregar models assim prontos em um clique
+     */
+    public function getObjUsuario($id) {
+        $query = $this->db->get_where('usuario', array('id' => $id));
+		// Se a query retornar vazia, retorna false
+		if(!$query){
+			return FALSE;
+		}
+		// Senão instancia, popula e retorna o objeto
+		$row = $query->row_object();
+        $user = new Usuario_ci_model();
+        $user->id = $row->id;
+        $user->nome = $row->nome;
+        $user->login = $row->login;
+        $user->senha = $row->senha;
+        $user->telefone = $row->telefone;
+        $user->email = $row->email;
+        $user->nivel_de_acesso = $row->nivel_de_acesso;
+        $user->data_de_cadastro = $row->data_de_cadastro;
+        $user->data_de_ultimo_acesso = $row->data_de_ultimo_acesso;
+        $user->status = $row->status;
+        
+        return $user;
+    }
 	
 	
 	/**
 	 * Atualiza os dados de um usuário no banco
 	 */
     public function editarUsuario($id_usuario, $dados_usuario) {
-		
 		$this->db->where('id', $id_usuario);
-		
 		// Returna True ou False
 		return $this->db->update('usuario', $dados_usuario);
-
     }
 
+    
+    
+    
+    
+    
+    //Old, static and ugly methods
+    //##########################################################################
     public static function deleteUsuario($id) {
         $con = Conect_model::conectar();
         $select = $con->prepare("DELETE FROM `usuario` WHERE `usuario`.`id` = :id");
